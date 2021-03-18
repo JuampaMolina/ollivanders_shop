@@ -34,6 +34,10 @@ class DB:
     ]
 
     @staticmethod
+    def get_all_items():
+        return DB.inventory
+
+    @staticmethod
     def get_item(name):
         items = DB.inventory
         return [item for item in items if item["name"] == name]

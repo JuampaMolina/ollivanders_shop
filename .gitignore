@@ -3,6 +3,7 @@
 
 ## Directory-based project format
 .idea/
+.run/
 
 ## File-based project format
 *.ipr

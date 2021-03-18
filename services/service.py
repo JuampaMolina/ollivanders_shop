@@ -21,3 +21,12 @@ class Service:
             abort(404, message="The item {} doesn't exist".format(name))
 
         return items
+
+    @staticmethod
+    def get_all_items():
+        items = DB.get_all_items()
+
+        if not items:
+            abort(404, message="The inventory is empty")
+
+        return items

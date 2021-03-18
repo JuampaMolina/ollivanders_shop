@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_restful import Resource, Api
 from controller.items import Items
+from controller.inventory import Inventory
 
 
 def create_app():
@@ -14,5 +15,6 @@ def create_app():
 
     api.add_resource(WelcomeOllivanders, '/')
     api.add_resource(Items, '/item/<name>')
+    api.add_resource(Inventory, '/inventory')
 
     return app

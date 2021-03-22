@@ -19,7 +19,7 @@ def test_get_item(client):
 
 @pytest.mark.db_get_inventory
 def test_get_all_items(client):
-    DB.load_database()
+    client.post('/inventory')
     rv = client.get('/inventory')
     assert json.loads(rv.data) == [
     {

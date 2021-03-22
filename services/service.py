@@ -1,3 +1,4 @@
+from flask import jsonify
 from flask_restful import Resource, fields, abort
 from repository.db import DB
 
@@ -35,8 +36,16 @@ class Service:
     def load_database():
         try:
             DB.load_database()
-            return {
-                'message': 'Load Database'
-            }
+            return jsonify({'message': 'Database loaded succesfully'})
         except:
-            return "It wasn't possible to load the database"
+            return jsonify({'message': "It wasn't possible to load the database"})
+
+    @staticmethod
+    def delete_item(id):
+        if not id:
+            abort(400, message="You must introduce the item id")
+        try:
+            response = DB.delete_item(id)
+            return response
+        except:
+            return jsonify({'message': "It wasn't possible delete the item with id: " + id})

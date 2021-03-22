@@ -1,6 +1,6 @@
-from flask import Response
+from flask import Response, jsonify
 from flask_pymongo import pymongo
-from bson import json_util
+from bson import json_util, ObjectId
 
 CONNECTION_STRING = "mongodb+srv://admin:admin@ollivanders.8xp7x.mongodb.net/ollivanders_shop?retryWrites=true&w=majority"
 client = pymongo.MongoClient(CONNECTION_STRING)
@@ -76,3 +76,9 @@ class DB:
         })
         response = json_util.dumps(items)
         return Response(response, mimetype='application/json')
+
+    @staticmethod
+    def delete_item(id):
+        inventory.delete_one({'_id': ObjectId(id)})
+        response = jsonify({'message': 'Item ' + id + ' deleted succesfully'})
+        return response

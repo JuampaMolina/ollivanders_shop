@@ -1,5 +1,5 @@
 from bson import json_util, ObjectId
-from flask import Response, jsonify
+from flask import Response, jsonify, request
 from flask_pymongo import pymongo
 
 CONNECTION_STRING = "mongodb+srv://admin:admin@ollivanders.8xp7x.mongodb.net/ollivanders_shop?retryWrites=true&w=majority"
@@ -85,3 +85,27 @@ class DB:
         inventory.delete_one({'_id': ObjectId(id)})
         response = jsonify({'message': 'Item ' + id + ' deleted succesfully'})
         return response
+
+    @staticmethod
+    def add_item():
+        name = request.json['name']
+        sell_in = request.json['sell_in']
+        quality = request.json['quality']
+
+        if name and sell_in and quality:
+            id = inventory.insert_one({
+                'name': name,
+                'sell_in': sell_in,
+                'quality': quality})
+
+            response = jsonify({
+                '_id': str(id.inserted_id),
+                'name': name,
+                'sell_in': sell_in,
+                'quality': quality
+            })
+            response.status_code = 201
+            return response
+
+
+

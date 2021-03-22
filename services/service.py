@@ -50,3 +50,10 @@ class Service:
             return response
         except:
             return jsonify({'message': "It wasn't possible delete the item with id: " + id})
+
+    @staticmethod
+    def add_item():
+        try:
+            return DB.add_item()
+        except:
+            return jsonify({'message': "It wasn't possible to load the item on the database"})

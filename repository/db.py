@@ -1,14 +1,14 @@
-from flask import Flask
+from flask import Response
 from flask_pymongo import pymongo
-from app import app
+from bson import json_util
 
 CONNECTION_STRING = "mongodb+srv://admin:admin@ollivanders.8xp7x.mongodb.net/ollivanders_shop?retryWrites=true&w=majority"
 client = pymongo.MongoClient(CONNECTION_STRING)
 db = client.get_database('ollivanders_shop')
 inventory = pymongo.collection.Collection(db, 'inventory')
 
-class DB:
 
+class DB:
     products = [
         {
             "name": "+5 Dexterity Vest",
@@ -59,14 +59,20 @@ class DB:
 
     @staticmethod
     def load_database():
+        inventory.delete_many({})
         for product in DB.products:
             inventory.insert_one(product)
 
     @staticmethod
     def get_all_items():
-        return DB.products
+        items = inventory.find()
+        response = json_util.dumps(items)
+        return Response(response, mimetype='application/json')
 
     @staticmethod
     def get_item(name):
-        items = DB.products
-        return [item for item in items if item["name"] == name]
+        items = inventory.find({
+            'name': name
+        })
+        response = json_util.dumps(items)
+        return Response(response, mimetype='application/json')

@@ -30,3 +30,13 @@ class Service:
             abort(404, message="The inventory is empty")
 
         return items
+
+    @staticmethod
+    def load_database():
+        try:
+            DB.load_database()
+            return {
+                'message': 'Load Database'
+            }
+        except:
+            return "It wasn't possible to load the database"

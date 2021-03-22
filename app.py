@@ -2,7 +2,6 @@ from flask import Flask
 from flask_restful import Resource, Api
 from controller.items import Items
 from controller.inventory import Inventory
-from controller.load_data import LoadData
 
 app = Flask(__name__)
 api = Api(app)

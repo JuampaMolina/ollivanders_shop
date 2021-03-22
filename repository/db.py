@@ -10,15 +10,18 @@ inventory = pymongo.collection.Collection(db, 'inventory')
 
 class DB:
     products = [
+        # For the get_item test
+        {
+            "_id": ObjectId("605890fbdf7ed8ef465527ee")
+            ,
+            "name": "Aged Brie",
+            "sell_in": 2,
+            "quality": 0
+        },
         {
             "name": "+5 Dexterity Vest",
             "sell_in": 10,
             "quality": 20
-        },
-        {
-            "name": "Aged Brie",
-            "sell_in": 2,
-            "quality": 0
         },
         {
             "name": "Elixir of the Mongoose",

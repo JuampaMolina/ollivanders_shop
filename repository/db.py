@@ -1,6 +1,6 @@
+from bson import json_util, ObjectId
 from flask import Response, jsonify
 from flask_pymongo import pymongo
-from bson import json_util, ObjectId
 
 CONNECTION_STRING = "mongodb+srv://admin:admin@ollivanders.8xp7x.mongodb.net/ollivanders_shop?retryWrites=true&w=majority"
 client = pymongo.MongoClient(CONNECTION_STRING)

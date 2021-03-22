@@ -1,4 +1,5 @@
 import pytest
+
 from controller.factory import create_app
 
 

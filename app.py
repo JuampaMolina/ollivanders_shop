@@ -16,7 +16,6 @@ class WelcomeOllivanders(Resource):
 api.add_resource(WelcomeOllivanders, '/')
 api.add_resource(Items, '/item/<name>', '/item/delete/<id>')
 api.add_resource(Inventory, '/inventory')
-api.add_resource(LoadData, '/load')
 
 if __name__ == '__main__':
     app.run(debug=True)

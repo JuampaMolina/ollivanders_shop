@@ -18,6 +18,5 @@ api.add_resource(Items, '/item/<name>')
 api.add_resource(Inventory, '/inventory')
 api.add_resource(LoadData, '/load')
 
-
 if __name__ == '__main__':
     app.run(debug=True)

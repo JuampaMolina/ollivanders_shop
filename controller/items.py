@@ -6,4 +6,3 @@ class Items(Resource):
 
     def get(self, name):
         return Service.get_item(name)
-

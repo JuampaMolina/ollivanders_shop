@@ -12,17 +12,23 @@ class Service:
     }'''
 
     @staticmethod
-    def get_item(name):
+    def get_item(key, value):
+        valid_keys = ['name', 'sell_in', 'quality']
 
-        if not name:
-            abort(400, message="You must introduce the item name")
+        if key not in valid_keys:
+            return "You must introduce a valid key"
 
-        items = DB.get_item(name)
+        if not value:
+            abort(400, message="You must introduce a value")
 
-        if not items:
-            abort(404, message="The item {} doesn't exist".format(name))
+        items = DB.get_item(key, value)
+
+        if not items.data:
+            return "No hay items que cumplan las condiciones"
+            """abort(404, message="The item {} doesn't exist".format(value))"""
 
         return items
+
 
     @staticmethod
     def get_all_items():

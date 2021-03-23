@@ -80,9 +80,11 @@ class DB:
         return Response(response, mimetype='application/json')
 
     @staticmethod
-    def get_item(name):
+    def get_item(key, value):
+        if value.isdigit():
+            value = int(value)
         items = inventory.find({
-            'name': name
+            "{}".format(key): value
         })
         response = json_util.dumps(items)
         return Response(response, mimetype='application/json')

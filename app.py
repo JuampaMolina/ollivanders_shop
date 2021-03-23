@@ -26,4 +26,4 @@ api.add_resource(Items, '/item/<name>', '/item/delete/<id>', '/item/add')
 api.add_resource(Inventory, '/inventory')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=4000, debug=True)

@@ -15,7 +15,7 @@ def create_app():
             return {'Welcome': 'Ollivanders'}
 
     api.add_resource(WelcomeOllivanders, '/')
-    api.add_resource(Items, '/item/<name>', '/item/delete/<id>')
+    api.add_resource(Items, '/item/<key>/<value>', '/item/delete/<id>', '/item/add')
     api.add_resource(Inventory, '/inventory')
 
     return app

@@ -3,7 +3,7 @@ import pytest
 
 
 @pytest.mark.db_get_item_by_name
-def test_get_item(client):
+def test_get_item_by_name(client):
     client.post('/inventory')
     rv = client.get('/item/name/Aged Brie')
     assert json.loads(rv.data) == [

@@ -16,19 +16,18 @@ class Service:
         valid_keys = ['name', 'sell_in', 'quality']
 
         if key not in valid_keys:
-            return "You must introduce a valid key"
+            abort(400, message="You must introduce a valid key")
 
         if not value:
             abort(400, message="You must introduce a value")
 
         items = DB.get_item(key, value)
 
-        if not items.data:
-            return "No hay items que cumplan las condiciones"
-            """abort(404, message="The item {} doesn't exist".format(value))"""
+        if items.data == b'[]':
+            return abort(404, message="The item {} doesn't exist".format(
+                value))
 
         return items
-
 
     @staticmethod
     def get_all_items():

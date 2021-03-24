@@ -15,7 +15,7 @@ function loadItems(){
                 section.appendChild(card);
             });
         })
-        .catch(error => console.log('It was an error : ' + error.message))
+        .catch(error => console.log('It was an error: ' + error.message))
 }
 
 loadItems();

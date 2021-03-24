@@ -20,6 +20,7 @@ body {
 
 .card h3 {
     color: var(--orange);
+    margin-bottom: 30px;
 }
 
 .inventory_title {
@@ -35,6 +36,7 @@ body {
 
 .card {
     width: 300px;
+    height: 180px;
     margin: 20px;
     padding: 10px 40px;
     background: var(--gray);

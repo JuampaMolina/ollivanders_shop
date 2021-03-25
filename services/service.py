@@ -12,20 +12,16 @@ class Service:
     }'''
 
     @staticmethod
-    def get_item(key, value):
-        valid_keys = ['name', 'sell_in', 'quality']
+    def get_item(name):
 
-        if key not in valid_keys:
-            abort(400, message="You must introduce a valid key")
+        if not name:
+            abort(400, message="You must introduce the name")
 
-        if not value:
-            abort(400, message="You must introduce a value")
-
-        items = DB.get_item(key, value)
+        items = DB.get_item(name)
 
         if items.data == b'[]':
-            return abort(404, message="The item {} doesn't exist".format(
-                value))
+            return abort(404, message="There is no item with the name {}".format(
+                name))
 
         return items
 

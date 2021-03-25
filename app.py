@@ -23,7 +23,7 @@ def show_inventory():
 
 
 api.add_resource(WelcomeOllivanders, '/')
-api.add_resource(Items, '/item/<key>/<value>', '/item/delete/<id>', '/item/add')
+api.add_resource(Items, '/item/<name>', '/item/delete/<id>', '/item/add')
 api.add_resource(Inventory, '/inventory')
 
 if __name__ == '__main__':

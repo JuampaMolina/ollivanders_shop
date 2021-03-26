@@ -12,10 +12,10 @@ def create_app():
 
     class WelcomeOllivanders(Resource):
         def get(self):
-            return {'Welcome': 'Ollivanders'}
+            return {"Welcome": "Ollivanders"}
 
-    api.add_resource(WelcomeOllivanders, '/')
-    api.add_resource(Items, '/item/<key>/<value>', '/item/delete/<id>', '/item/add')
-    api.add_resource(Inventory, '/inventory')
+    api.add_resource(WelcomeOllivanders, "/")
+    api.add_resource(Items, "/item/<key>/<value>", "/item/delete/<id>", "/item/add")
+    api.add_resource(Inventory, "/inventory")
 
     return app

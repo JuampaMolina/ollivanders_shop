@@ -5,11 +5,11 @@ from repository.db import DB
 
 
 class Service:
-    '''resource_fields = {
+    """resource_fields = {
         'name': fields.String,
         "sell_in": fields.Integer,
         "quality": fields.Integer
-    }'''
+    }"""
 
     @staticmethod
     def get_item(name):
@@ -19,9 +19,8 @@ class Service:
 
         items = DB.get_item(name)
 
-        if items.data == b'[]':
-            return abort(404, message="There is no item with the name {}".format(
-                name))
+        if items.data == b"[]":
+            return abort(404, message="There is no item with the name {}".format(name))
 
         return items
 
@@ -38,9 +37,9 @@ class Service:
     def load_database():
         try:
             DB.load_database()
-            return jsonify({'message': 'Database loaded succesfully'})
+            return jsonify({"message": "Database loaded succesfully"})
         except:
-            return jsonify({'message': "It wasn't possible to load the database"})
+            return jsonify({"message": "It wasn't possible to load the database"})
 
     @staticmethod
     def delete_item(id):
@@ -50,11 +49,15 @@ class Service:
             response = DB.delete_item(id)
             return response
         except:
-            return jsonify({'message': "It wasn't possible delete the item with id: " + id})
+            return jsonify(
+                {"message": "It wasn't possible delete the item with id: " + id}
+            )
 
     @staticmethod
     def add_item():
         try:
             return DB.add_item()
         except:
-            return jsonify({'message': "It wasn't possible to load the item on the database"})
+            return jsonify(
+                {"message": "It wasn't possible to load the item on the database"}
+            )

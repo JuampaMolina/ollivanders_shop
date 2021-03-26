@@ -13,18 +13,18 @@ api = Api(app)
 
 class WelcomeOllivanders(Resource):
     def get(self):
-        return {'Welcome': 'Ollivanders'}
+        return {"Welcome": "Ollivanders"}
 
 
-@app.route('/home')
+@app.route("/home")
 def show_inventory():
     items = json.loads(Service.get_all_items().data)
-    return render_template('inventory.html', inventory=items)
+    return render_template("inventory.html", inventory=items)
 
 
-api.add_resource(WelcomeOllivanders, '/')
-api.add_resource(Items, '/item/<name>', '/item/delete/<id>', '/item/add')
-api.add_resource(Inventory, '/inventory')
+api.add_resource(WelcomeOllivanders, "/")
+api.add_resource(Items, "/item/<name>", "/item/delete/<id>", "/item/add")
+api.add_resource(Inventory, "/inventory")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(host="0.0.0.0", port=4000, debug=True)

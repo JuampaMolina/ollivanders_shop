@@ -12,12 +12,12 @@ class Service:
     }"""
 
     @staticmethod
-    def get_item(name):
+    def get_item_by_name(name):
 
         if not name:
             abort(400, message="You must introduce the name")
 
-        items = DB.get_item(name)
+        items = DB.get_item_by_name(name)
 
         if items.data == b"[]":
             return abort(404, message="There is no item with the name {}".format(name))

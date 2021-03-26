@@ -5,7 +5,7 @@ from services.service import Service
 
 class Items(Resource):
     def get(self, name):
-        return Service.get_item(name)
+        return Service.get_item_by_name(name)
 
     def delete(self, id):
         return Service.delete_item(id)

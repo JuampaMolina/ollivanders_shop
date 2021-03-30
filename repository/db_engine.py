@@ -3,7 +3,6 @@ from repository.model import Inventory
 import click
 from flask.cli import with_appcontext
 from flask import g
-from flask_pymongo import ObjectId
 
 
 def get_db():

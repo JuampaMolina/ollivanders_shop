@@ -1,15 +1,19 @@
 from flask import jsonify
 from flask_restful import abort
 
-from repository.db_old import DB
+from repository.db import DB
 
 
 class Service:
-    """resource_fields = {
-        'name': fields.String,
-        "sell_in": fields.Integer,
-        "quality": fields.Integer
-    }"""
+
+    @staticmethod
+    def get_inventory():
+        items = DB.get_inventory()
+
+        if not items:
+            abort(404, message="The inventory is empty")
+
+        return items
 
     @staticmethod
     def get_item_by_name(name):
@@ -21,15 +25,6 @@ class Service:
 
         if items.data == b"[]":
             return abort(404, message="There is no item with the name {}".format(name))
-
-        return items
-
-    @staticmethod
-    def get_all_items():
-        items = DB.get_all_items()
-
-        if not items:
-            abort(404, message="The inventory is empty")
 
         return items
 

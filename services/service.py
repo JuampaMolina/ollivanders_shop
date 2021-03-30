@@ -1,7 +1,7 @@
 from flask import jsonify
 from flask_restful import abort
 
-from repository.db import DB
+from repository.db_old import DB
 
 
 class Service:

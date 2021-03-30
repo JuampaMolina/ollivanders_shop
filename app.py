@@ -5,11 +5,12 @@ import json
 from controller.inventory import Inventory
 from controller.items import Items
 from services.service import Service
+from repository.db_engine import init_app
 
 app = Flask(__name__)
 CORS(app)
 api = Api(app)
-
+init_app(app)
 
 class WelcomeOllivanders(Resource):
     def get(self):

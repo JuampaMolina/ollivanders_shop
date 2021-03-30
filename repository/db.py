@@ -1,19 +1,47 @@
-from mongoengine import *
-from flask import current_app, g
+from flask import g, jsonify
+from flask_restful import fields, marshal_with
+from repository.db_engine import get_db
 
 
-def get_db():
-    if 'db' not in g:
-        g.db = connect(
-            db='ollivanders_shop',
-            host='mongodb+srv://admin:admin@ollivanders.8xp7x.mongodb.net/ollivanders_shop?retryWrites=true&w=majority'
-        )
+class DB:
+    resource_fields = {
+        'name': fields.String,
+        "sell_in": fields.Integer,
+        "quality": fields.Integer
+    }
 
-    return g.db
+    @staticmethod
+    @marshal_with(resource_fields)
+    def get_inventory():
+        db = get_db()
+        inventory = []
+        for object in g.Inventory.objects():
+            inventory.append(object)
+        return inventory
 
+    @staticmethod
+    @marshal_with(resource_fields)
+    def get_item_by_name(name):
+        db = get_db()
+        items = []
+        for object in g.Inventory.objects(name=name):
+            items.append(object)
+        return items
 
-def close_db(e=None):
-    db = g.pop('db', None)
+    @staticmethod
+    @marshal_with(resource_fields)
+    def get_item_by_quality(quality):
+        db = get_db()
+        items = []
+        for object in g.Inventory.objects(quality=quality):
+            items.append(object)
+        return items
 
-    if db is not None:
-        db.close()
+    @staticmethod
+    @marshal_with(resource_fields)
+    def get_item_by_sell_in(sell_in):
+        db = get_db()
+        items = []
+        for object in g.Inventory.objects(sell_in__lte=sell_in):
+            items.append(object)
+        return items

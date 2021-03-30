@@ -4,6 +4,8 @@ from flask_cors import CORS
 import json
 from controller.inventory import Inventory
 from controller.items import Items
+from controller.quality import Quality
+from controller.sell_in import Sell_in
 from services.service import Service
 from repository.db_engine import init_app
 
@@ -24,8 +26,10 @@ def show_inventory():
 
 
 api.add_resource(WelcomeOllivanders, "/")
-api.add_resource(Items, "/item/<name>", "/item/delete/<id>", "/item/add")
 api.add_resource(Inventory, "/inventory")
+api.add_resource(Items, "/item/<name>", "/item/delete/<id>", "/item/add")
+api.add_resource(Quality, "/item/quality/<int:quality>")
+api.add_resource(Sell_in, "/item/sell_in/<int:sell_in>")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=4000, debug=True)

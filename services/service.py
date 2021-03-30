@@ -7,34 +7,26 @@ from repository.db import DB
 class Service:
 
     @staticmethod
-    def get_inventory():
-        items = DB.get_inventory()
-
+    def check(items):
         if not items:
-            abort(404, message="The inventory is empty")
-
+            abort(404, message="There are no items that meet the criterion")
         return items
+
+    @staticmethod
+    def get_inventory():
+        return Service.check(DB.get_inventory())
 
     @staticmethod
     def get_item_by_name(name):
-
-        if not name:
-            abort(400, message="You must introduce the name")
-
-        items = DB.get_item_by_name(name)
-
-        if items.data == b"[]":
-            return abort(404, message="There is no item with the name {}".format(name))
-
-        return items
+        return Service.check(DB.get_item_by_name(name))
 
     @staticmethod
-    def load_database():
-        try:
-            DB.load_database()
-            return jsonify({"message": "Database loaded succesfully"})
-        except:
-            return jsonify({"message": "It wasn't possible to load the database"})
+    def get_item_by_quality(quality):
+        return Service.check(DB.get_item_by_quality(quality))
+
+    @staticmethod
+    def get_item_by_sell_in(sell_in):
+        return Service.check(DB.get_item_by_sell_in(sell_in))
 
     @staticmethod
     def delete_item(id):

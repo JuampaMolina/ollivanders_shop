@@ -1,7 +1,7 @@
 from mongoengine import *
 
 
-class Item(Document):
+class Inventory(Document):
     _id = StringField(required=True)
     name = StringField(required=True)
     sell_in = IntField()

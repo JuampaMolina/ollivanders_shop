@@ -6,17 +6,17 @@ from flask import g
 
 
 def get_db():
-    if 'db' not in g:
+    if "db" not in g:
         g.db = connect(
-            db='ollivanders_shop',
-            host='mongodb+srv://admin:admin@ollivanders.8xp7x.mongodb.net/ollivanders_shop?retryWrites=true&w=majority'
+            db="ollivanders_shop",
+            host="mongodb+srv://admin:admin@ollivanders.8xp7x.mongodb.net/ollivanders_shop?retryWrites=true&w=majority",
         )
         g.Inventory = Inventory
     return g.db
 
 
 def close_db(e=None):
-    db = g.pop('db', None)
+    db = g.pop("db", None)
 
     if db is not None:
         db.close()
@@ -75,15 +75,16 @@ def init_db():
     ]
 
     for product in default_inventory:
-        Inventory(name=product['name'], sell_in=product['sell_in'],
-                  quality=product['quality'], ).save()
+        Inventory(
+            name=product["name"], sell_in=product["sell_in"], quality=product["quality"]
+        ).save()
 
 
-@click.command('init-db')
+@click.command("init-db")
 @with_appcontext
 def init_db_command():
     init_db()
-    click.echo('¡Base de datos inicializada y poblada!')
+    click.echo("¡Base de datos inicializada y poblada!")
 
 
 def init_app(app):

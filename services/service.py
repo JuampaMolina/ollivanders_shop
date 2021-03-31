@@ -5,7 +5,6 @@ from repository.db import DB
 
 
 class Service:
-
     @staticmethod
     def check(items):
         if not items:

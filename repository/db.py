@@ -5,9 +5,9 @@ from repository.db_engine import get_db
 
 class DB:
     resource_fields = {
-        'name': fields.String,
+        "name": fields.String,
         "sell_in": fields.Integer,
-        "quality": fields.Integer
+        "quality": fields.Integer,
     }
 
     @staticmethod

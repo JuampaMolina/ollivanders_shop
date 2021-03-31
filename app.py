@@ -14,6 +14,7 @@ CORS(app)
 api = Api(app)
 init_app(app)
 
+
 class WelcomeOllivanders(Resource):
     def get(self):
         return {"Welcome": "Ollivanders"}

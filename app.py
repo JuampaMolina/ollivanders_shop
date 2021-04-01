@@ -22,7 +22,7 @@ class WelcomeOllivanders(Resource):
 
 @app.route("/home")
 def show_inventory():
-    items = json.loads(Service.get_all_items().data)
+    items = Service.get_inventory()
     return render_template("inventory.html", inventory=items)
 
 

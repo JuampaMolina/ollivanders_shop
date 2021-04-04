@@ -38,6 +38,7 @@ setuptools.setup(
         "itsdangerous==1.1.0",
         "Jinja2==2.11.3",
         "MarkupSafe==1.1.1",
+        "mongoengine==0.23.0",
         "mypy-extensions==0.4.3",
         "packaging==20.9",
         "pathspec==0.8.1",

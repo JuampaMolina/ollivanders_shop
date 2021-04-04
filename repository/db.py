@@ -1,7 +1,8 @@
 from flask import g
 from flask_restful import fields, marshal_with
-from repository.db_engine import get_db
 from mongoengine import Q
+
+from repository.db_engine import get_db
 
 
 class DB:

@@ -46,7 +46,7 @@ class NormalItem(Item, Interfaz):
         else:
             self.quality = 0
         assert 0 <= self.quality <= 50, (
-            "quality de %s fuera de rango" % self.__class__.__name__
+                "quality de %s fuera de rango" % self.__class__.__name__
         )
 
     # Override metodo update_quality de la interfaz
@@ -103,7 +103,7 @@ class Sulfuras(NormalItem):
     # Override metodo update_quality de la interfaz
     def update_quality(self):
         assert self.quality == 80, (
-            "quality de %s distinta de 80" % self.__class__.__name__
+                "quality de %s distinta de 80" % self.__class__.__name__
         )
         pass
 
@@ -121,7 +121,7 @@ class Backstage(NormalItem):
         """
         NormalItem.setQuality(self, valor)
         assert 0 <= self.quality <= 50, (
-            "quality de %s fuera de rango" % self.__class__.__name__
+                "quality de %s fuera de rango" % self.__class__.__name__
         )
 
     # Override metodo update_quality de la interfaz

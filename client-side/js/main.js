@@ -1,6 +1,6 @@
 const section = document.querySelector('.parent');
 
-function loadItems(){
+function loadItems() {
     fetch('http://127.0.0.1:5000/inventory')
         .then(response => response.json()) //response to JSON
         .then(data => {
@@ -8,9 +8,9 @@ function loadItems(){
                 const card = document.createElement('div');
                 card.className = 'card'
                 card.innerHTML += `
-                    <h3>${ doc.name }</h3>
-                    <h4>Sell In: ${ doc.sell_in }</h4>
-                    <h4>Quality: ${ doc.quality }</h4>
+                    <h3>${doc.name}</h3>
+                    <h4>Sell In: ${doc.sell_in}</h4>
+                    <h4>Quality: ${doc.quality}</h4>
                 `;
                 section.appendChild(card);
             });

@@ -27,6 +27,7 @@ body {
     color: var(--orange);
     text-align: center;
 }
+
 .parent {
     display: flex;
     flex-wrap: wrap;

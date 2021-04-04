@@ -1,8 +1,9 @@
-from mongoengine import *
-from repository.model import Inventory
 import click
-from flask.cli import with_appcontext
 from flask import g
+from flask.cli import with_appcontext
+from mongoengine import *
+
+from repository.model import Inventory
 
 
 def get_db():

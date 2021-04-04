@@ -1,4 +1,4 @@
-from flask import jsonify, Response
+from flask import jsonify
 from flask_restful import abort
 
 from repository.db import DB

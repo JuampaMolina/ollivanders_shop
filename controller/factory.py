@@ -1,6 +1,7 @@
 from flask import Flask
-from flask_restful import Resource, Api
 from flask_cors import CORS
+from flask_restful import Resource, Api
+
 from controller.inventory import Inventory
 from controller.items import Items
 from controller.quality import Quality
@@ -9,7 +10,6 @@ from repository.db_engine import init_app
 
 
 def create_app():
-
     app = Flask(__name__)
     CORS(app)
     api = Api(app)

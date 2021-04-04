@@ -1,13 +1,13 @@
 from flask import Flask, render_template
-from flask_restful import Resource, Api
 from flask_cors import CORS
-import json
+from flask_restful import Resource, Api
+
 from controller.inventory import Inventory
 from controller.items import Items
 from controller.quality import Quality
 from controller.sell_in import Sell_in
-from services.service import Service
 from repository.db_engine import init_app
+from services.service import Service
 
 app = Flask(__name__)
 CORS(app)

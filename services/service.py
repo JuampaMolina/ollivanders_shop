@@ -31,7 +31,19 @@ class Service:
     def add_item(args):
         DB.add_item(args)
         response = jsonify(
-            {'message': 'Item added successfully'}
+            {'message': 'Item {} added successfully'.format(args['name'])}
+        )
+        response.status_code = 201
+        return response
+
+    @staticmethod
+    def delete_item(args):
+        item = DB.delete_item(args)
+        if item['name'] is None:
+            return jsonify({'message': 'Item {} not found'.format(args['name'])})
+
+        response = jsonify(
+            {'message': 'Item {} deleted successfully'.format(item['name'])}
         )
         response.status_code = 201
         return response

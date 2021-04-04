@@ -1,6 +1,7 @@
-from flask import g, jsonify
+from flask import g
 from flask_restful import fields, marshal_with
 from repository.db_engine import get_db
+from mongoengine import Q
 
 
 class DB:
@@ -51,3 +52,14 @@ class DB:
     def add_item(args):
         db = get_db()
         g.Inventory(name=args['name'], sell_in=args['sell_in'], quality=args['quality']).save()
+
+    @staticmethod
+    @marshal_with(resource_fields)
+    def delete_item(args):
+        db = get_db()
+        item = g.Inventory.objects(Q(name=args['name'])
+                                   & Q(sell_in=args['sell_in'])
+                                   & Q(quality=args['quality'])).first()
+        if item:
+            item.delete()
+        return item

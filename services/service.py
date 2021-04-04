@@ -1,4 +1,4 @@
-from flask import jsonify
+from flask import jsonify, Response
 from flask_restful import abort
 
 from repository.db import DB
@@ -28,22 +28,10 @@ class Service:
         return Service.check(DB.get_item_by_sell_in(sell_in))
 
     @staticmethod
-    def delete_item(id):
-        if not id:
-            abort(400, message="You must introduce the item id")
-        try:
-            response = DB.delete_item(id)
-            return response
-        except:
-            return jsonify(
-                {"message": "It wasn't possible delete the item with id: " + id}
-            )
-
-    @staticmethod
-    def add_item():
-        try:
-            return DB.add_item()
-        except:
-            return jsonify(
-                {"message": "It wasn't possible to load the item on the database"}
-            )
+    def add_item(args):
+        DB.add_item(args)
+        response = jsonify(
+            {'message': 'Item added successfully'}
+        )
+        response.status_code = 201
+        return response

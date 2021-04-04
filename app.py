@@ -28,7 +28,7 @@ def show_inventory():
 
 api.add_resource(WelcomeOllivanders, "/")
 api.add_resource(Inventory, "/inventory")
-api.add_resource(Items, "/item/<name>", "/item/delete/<id>", "/item/add")
+api.add_resource(Items, "/item/name/<name>", "/item")
 api.add_resource(Quality, "/item/quality/<int:quality>")
 api.add_resource(Sell_in, "/item/sell_in/<int:sell_in>")
 

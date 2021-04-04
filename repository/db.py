@@ -45,3 +45,9 @@ class DB:
         for object in g.Inventory.objects(sell_in__lte=sell_in):
             items.append(object)
         return items
+
+    @staticmethod
+    @marshal_with(resource_fields)
+    def add_item(args):
+        db = get_db()
+        g.Inventory(name=args['name'], sell_in=args['sell_in'], quality=args['quality']).save()

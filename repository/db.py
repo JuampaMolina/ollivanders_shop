@@ -3,6 +3,7 @@ from flask_restful import fields, marshal_with
 from mongoengine import Q
 
 from repository.db_engine import get_db
+from repository.factory import Factory
 
 
 class DB:
@@ -64,3 +65,14 @@ class DB:
         if item:
             item.delete()
         return item
+
+    @staticmethod
+    def update_quality():
+        db = get_db()
+        for item in g.Inventory.objects():
+            itemObject = Factory.createItemObject([item.name, item.sell_in, item.quality])
+            itemObject.update_quality()
+            item.sell_in = itemObject.sell_in
+            item.quality = itemObject.quality
+            item.save()
+        return DB.get_inventory()

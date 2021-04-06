@@ -1,6 +1,6 @@
 import pytest
 
-from controller.factory import create_app
+from controller.app_factory import create_app
 
 
 @pytest.fixture

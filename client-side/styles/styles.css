@@ -50,12 +50,19 @@ body {
 }
 
 div.button {
-    background: var(--black);
+    margin-top: 80px;
+    background: var(--gray);
     display: inline-block;
     color: var(--orange);
-    padding: 20px;
+    border: 2px solid var(--orange);
+    padding: 15px;
     border-radius: 5px;
     cursor: pointer;
     margin-bottom: 30px;
+    text-align: center;
+}
+
+.buttons_section {
+    align-items: center;
     text-align: center;
 }

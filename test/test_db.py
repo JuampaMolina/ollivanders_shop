@@ -53,7 +53,7 @@ expectedInventoryDay1 = [
 
 
 @pytest.mark.db_get_inventory
-def test_get_all_items(client):
+def test_get_inventory(client):
     rv = client.get("/inventory")
     assert json.loads(rv.data) == expectedInventoryDay0
 
@@ -72,11 +72,11 @@ def test_get_item_by_quality(client):
         "sell_in": 0,
         "quality": 80,
     },
-    {
-        "name": "Sulfuras, Hand of Ragnaros",
-        "sell_in": -1,
-        "quality": 80,
-    }]
+        {
+            "name": "Sulfuras, Hand of Ragnaros",
+            "sell_in": -1,
+            "quality": 80,
+        }]
 
 
 @pytest.mark.db_get_item_by_sell_in

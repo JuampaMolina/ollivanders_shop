@@ -7,6 +7,7 @@ from controller.items import Items
 from controller.quality import Quality
 from controller.sell_in import Sell_in
 from controller.update_quality import UpdateQuality
+from controller.users import Users
 from repository.db_engine import init_app
 
 
@@ -26,5 +27,6 @@ def create_app():
     api.add_resource(Quality, "/item/quality/<int:quality>")
     api.add_resource(Sell_in, "/item/sell_in/<int:sell_in>")
     api.add_resource(UpdateQuality, "/update_quality")
+    api.add_resource(Users, "/user")
 
     return app

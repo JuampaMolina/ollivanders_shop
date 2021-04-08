@@ -3,82 +3,47 @@ from flask import g
 from mongoengine import connect
 
 from controller.app_factory import create_app
-from repository.models import Inventory
+from repository.models import Inventory, Users
+from repository.db_engine import default_inventory, default_users
 
 
 @pytest.fixture(autouse=True)
 def client():
     app = create_app()
     app.app_context().push()  # Pusheamos el app_context para que sea accesible desde fuera.
-    SetupTestDB.init_db()
+    SetupTestDB.init_mock_db()
     return app.test_client()
 
 
 class SetupTestDB:
-    default_inventory = [
-        {
-            "name": "Aged Brie",
-            "sell_in": 2,
-            "quality": 0,
-        },
-        {
-            "name": "+5 Dexterity Vest",
-            "sell_in": 10,
-            "quality": 20,
-        },
-        {
-            "name": "Elixir of the Mongoose",
-            "sell_in": 5,
-            "quality": 7,
-        },
-        {
-            "name": "Sulfuras, Hand of Ragnaros",
-            "sell_in": 0,
-            "quality": 80,
-        },
-        {
-            "name": "Sulfuras, Hand of Ragnaros",
-            "sell_in": -1,
-            "quality": 80,
-        },
-        {
-            "name": "Backstage passes to a TAFKAL80ETC concert",
-            "sell_in": 15,
-            "quality": 20,
-        },
-        {
-            "name": "Backstage passes to a TAFKAL80ETC concert",
-            "sell_in": 10,
-            "quality": 49,
-        },
-        {
-            "name": "Backstage passes to a TAFKAL80ETC concert",
-            "sell_in": 5,
-            "quality": 49,
-        },
-        {
-            "name": "Conjured Mana Cake",
-            "sell_in": 3,
-            "quality": 6,
-        },
-    ]
 
     # Para poder acceder a la base de datos mockeada tenemos que pushear el app_context.
     @staticmethod
     def get_db():
         g.db = connect("mongoenginetest", host="mongomock://localhost")
         g.Inventory = Inventory
+        g.Users = Users
         return g.db
 
     @staticmethod
-    def init_db():
+    def init_mock_db():
         db = SetupTestDB.get_db()
 
-        Inventory.drop_collection()  # importante eliminar todos los documentos antes de
+        Inventory.drop_collection()
+        Users.drop_collection()  # importante eliminar todos los documentos antes de
         # añadirlos porque el fixture se ejecuta antes de cada test.
-        for product in SetupTestDB.default_inventory:
+        for product in default_inventory:
             Inventory(
                 name=product["name"],
                 sell_in=product["sell_in"],
                 quality=product["quality"],
+            ).save()
+
+        for user in default_users:
+            Users(
+                user_name=user["user_name"],
+                email=user["email"],
+                password=user["password"],
+                credit=user["credit"],
+                inventory=user["inventory"],
             ).save()

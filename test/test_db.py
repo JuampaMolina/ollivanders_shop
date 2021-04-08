@@ -1,8 +1,9 @@
 import json
 from test.conftest import SetupTestDB
+from repository.db_engine import default_inventory, default_users
 import pytest
 
-expectedInventoryDay0 = SetupTestDB.default_inventory
+expectedInventoryDay0 = default_inventory
 expectedInventoryDay1 = [
     {
         "name": "Aged Brie",
@@ -50,6 +51,8 @@ expectedInventoryDay1 = [
         "quality": 4,
     },
 ]
+
+expectedUsers = default_users
 
 
 @pytest.mark.db_get_inventory
@@ -125,3 +128,27 @@ def test_add_item(client):
 def test_update_quality(client):
     rv = client.get("/update_quality")
     assert json.loads(rv.data) == expectedInventoryDay1
+
+
+# USERS
+
+@pytest.mark.db_get_users
+def test_get_users(client):
+    rv = client.get("/user")
+    assert json.loads(rv.data) == expectedUsers
+
+
+@pytest.mark.db_register_user
+def test_register_user(client):
+    rv1 = client.post("/user?user_name=Test&email=test@gmail.com&password=test&credit=50")
+    assert json.loads(rv1.data) == {"message": "User Test added successfully"}
+    rv2 = client.get("/user")
+    expectedUsersAfterPost = expectedUsers.copy()
+    expectedUsersAfterPost.append({
+        "user_name": "Test",
+        "email": "test@gmail.com",
+        "password": "test",
+        "credit": 50,
+        "inventory": []
+    })
+    assert json.loads(rv2.data) == expectedUsersAfterPost

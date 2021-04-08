@@ -7,14 +7,21 @@ from repository.factory import Factory
 
 
 class DB:
-    resource_fields = {
+    inventory_resource_fields = {
         "name": fields.String,
         "sell_in": fields.Integer,
         "quality": fields.Integer,
     }
 
+    users_resource_fields = {
+        "user_name": fields.String,
+        "email": fields.String,
+        "password": fields.String,
+        "inventory": fields.List(fields.Nested(inventory_resource_fields)) #Lista de objetos Item(Inventory model)
+    }
+
     @staticmethod
-    @marshal_with(resource_fields)
+    @marshal_with(inventory_resource_fields)
     def get_inventory():
         db = get_db()
         inventory = []
@@ -23,7 +30,7 @@ class DB:
         return inventory
 
     @staticmethod
-    @marshal_with(resource_fields)
+    @marshal_with(inventory_resource_fields)
     def get_item_by_name(name):
         db = get_db()
         items = []
@@ -32,7 +39,7 @@ class DB:
         return items
 
     @staticmethod
-    @marshal_with(resource_fields)
+    @marshal_with(inventory_resource_fields)
     def get_item_by_quality(quality):
         db = get_db()
         items = []
@@ -41,7 +48,7 @@ class DB:
         return items
 
     @staticmethod
-    @marshal_with(resource_fields)
+    @marshal_with(inventory_resource_fields)
     def get_item_by_sell_in(sell_in):
         db = get_db()
         items = []
@@ -50,7 +57,7 @@ class DB:
         return items
 
     @staticmethod
-    @marshal_with(resource_fields)
+    @marshal_with(inventory_resource_fields)
     def add_item(args):
         db = get_db()
         g.Inventory(
@@ -58,7 +65,7 @@ class DB:
         ).save()
 
     @staticmethod
-    @marshal_with(resource_fields)
+    @marshal_with(inventory_resource_fields)
     def delete_item(args):
         db = get_db()
         item = g.Inventory.objects(
@@ -82,3 +89,13 @@ class DB:
             item.quality = itemObject.quality
             item.save()
         return DB.get_inventory()
+
+    ## USERS
+
+    @staticmethod
+    @marshal_with(users_resource_fields)
+    def register_user(args):
+        db = get_db()
+        g.Users(
+            user_name=args["user_name"], email=args["email"], password=args["password"], inventory=args["inventory"]
+        ).save()

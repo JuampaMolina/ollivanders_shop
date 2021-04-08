@@ -59,3 +59,14 @@ class Service:
     @staticmethod
     def update_quality():
         return DB.update_quality()
+
+    ## USERS
+
+    @staticmethod
+    def register_user(args):
+        DB.register_user(args)
+        response = jsonify(
+            {"message": "User {} added successfully".format(args["user_name"])}
+        )
+        response.status_code = 201
+        return response

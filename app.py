@@ -7,6 +7,7 @@ from controller.items import Items
 from controller.quality import Quality
 from controller.sell_in import Sell_in
 from controller.update_quality import UpdateQuality
+from controller.users import Users
 from repository.db_engine import init_app
 from services.service import Service
 
@@ -33,6 +34,7 @@ api.add_resource(Items, "/item/name/<name>", "/item")
 api.add_resource(Quality, "/item/quality/<int:quality>")
 api.add_resource(Sell_in, "/item/sell_in/<int:sell_in>")
 api.add_resource(UpdateQuality, "/update_quality")
+api.add_resource(Users, "/user")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=4000, debug=True)

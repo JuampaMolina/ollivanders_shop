@@ -3,7 +3,7 @@ from flask import g
 from flask.cli import with_appcontext
 from mongoengine import *
 
-from repository.model import Inventory
+from repository.models import Inventory, Users
 
 
 def get_db():
@@ -13,6 +13,7 @@ def get_db():
             host="mongodb+srv://admin:admin@ollivanders.8xp7x.mongodb.net/ollivanders_shop?retryWrites=true&w=majority",
         )
         g.Inventory = Inventory
+        g.Users = Users
     return g.db
 
 

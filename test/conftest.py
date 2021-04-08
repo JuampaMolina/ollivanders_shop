@@ -3,7 +3,7 @@ from flask import g
 from mongoengine import connect
 
 from controller.app_factory import create_app
-from repository.model import Inventory
+from repository.models import Inventory
 
 
 @pytest.fixture(autouse=True)

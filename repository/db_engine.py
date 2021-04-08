@@ -81,6 +81,28 @@ def init_db():
             name=product["name"], sell_in=product["sell_in"], quality=product["quality"]
         ).save()
 
+    default_users = [
+        {
+            "user_name": "Charlos",
+            "email": "charlos@gmail.com",
+            "password": "test",
+            "credit": 50,
+            "inventory": []
+        },
+        {
+            "user_name": "Juampa",
+            "email": "juampa@gmail.com",
+            "password": "test",
+            "credit": 50,
+            "inventory": []
+        }
+    ]
+
+    for user in default_users:
+        Users(
+            user_name=user["user_name"], email=user["email"], password=user["password"], credit=user["credit"], inventory=user["inventory"]
+        ).save()
+
 
 @click.command("init-db")
 @with_appcontext

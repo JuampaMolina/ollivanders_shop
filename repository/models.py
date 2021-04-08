@@ -11,4 +11,5 @@ class Users(Document):
     user_name = StringField(required=True)
     email = StringField(required=True)
     password = StringField(required=True)
+    credit = IntField()
     inventory = ListField(ReferenceField(Inventory))

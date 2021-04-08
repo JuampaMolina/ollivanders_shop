@@ -17,6 +17,7 @@ class DB:
         "user_name": fields.String,
         "email": fields.String,
         "password": fields.String,
+        "credit": fields.Integer,
         "inventory": fields.List(fields.Nested(inventory_resource_fields)) #Lista de objetos Item(Inventory model)
     }
 
@@ -97,5 +98,5 @@ class DB:
     def register_user(args):
         db = get_db()
         g.Users(
-            user_name=args["user_name"], email=args["email"], password=args["password"], inventory=args["inventory"]
+            user_name=args["user_name"], email=args["email"], password=args["password"], credit=args["credit"], inventory=args["inventory"]
         ).save()

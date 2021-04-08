@@ -14,7 +14,7 @@ def client():
     return app.test_client()
 
 
-class SetupTestDB():
+class SetupTestDB:
     default_inventory = [
         {
             "name": "Aged Brie",
@@ -60,13 +60,13 @@ class SetupTestDB():
             "name": "Conjured Mana Cake",
             "sell_in": 3,
             "quality": 6,
-        }
+        },
     ]
 
     # Para poder acceder a la base de datos mockeada tenemos que pushear el app_context.
     @staticmethod
     def get_db():
-        g.db = connect('mongoenginetest', host='mongomock://localhost')
+        g.db = connect("mongoenginetest", host="mongomock://localhost")
         g.Inventory = Inventory
         return g.db
 
@@ -78,5 +78,7 @@ class SetupTestDB():
         # añadirlos porque el fixture se ejecuta antes de cada test.
         for product in SetupTestDB.default_inventory:
             Inventory(
-                name=product["name"], sell_in=product["sell_in"], quality=product["quality"]
+                name=product["name"],
+                sell_in=product["sell_in"],
+                quality=product["quality"],
             ).save()

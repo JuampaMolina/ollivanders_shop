@@ -15,12 +15,11 @@ class Service:
     def get_inventory():
         items = DB.get_inventory()
         if not items:
-            response = jsonify({'message': 'The inventory is empty'})
+            response = jsonify({"message": "The inventory is empty"})
             response.status_code = 404
             return response
         else:
             return items
-
 
     @staticmethod
     def get_item_by_name(name):
@@ -38,7 +37,7 @@ class Service:
     def add_item(args):
         DB.add_item(args)
         response = jsonify(
-            {'message': 'Item {} added successfully'.format(args['name'])}
+            {"message": "Item {} added successfully".format(args["name"])}
         )
         response.status_code = 201
         return response
@@ -46,13 +45,13 @@ class Service:
     @staticmethod
     def delete_item(args):
         item = DB.delete_item(args)
-        if item['name'] is None:
-            response = jsonify({'message': 'Item {} not found'.format(args['name'])})
+        if item["name"] is None:
+            response = jsonify({"message": "Item {} not found".format(args["name"])})
             response.status_code = 404
             return response
 
         response = jsonify(
-            {'message': 'Item {} deleted successfully'.format(item['name'])}
+            {"message": "Item {} deleted successfully".format(item["name"])}
         )
         response.status_code = 201
         return response
@@ -60,4 +59,3 @@ class Service:
     @staticmethod
     def update_quality():
         return DB.update_quality()
-

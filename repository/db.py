@@ -53,15 +53,19 @@ class DB:
     @marshal_with(resource_fields)
     def add_item(args):
         db = get_db()
-        g.Inventory(name=args['name'], sell_in=args['sell_in'], quality=args['quality']).save()
+        g.Inventory(
+            name=args["name"], sell_in=args["sell_in"], quality=args["quality"]
+        ).save()
 
     @staticmethod
     @marshal_with(resource_fields)
     def delete_item(args):
         db = get_db()
-        item = g.Inventory.objects(Q(name=args['name'])
-                                   & Q(sell_in=args['sell_in'])
-                                   & Q(quality=args['quality'])).first()
+        item = g.Inventory.objects(
+            Q(name=args["name"])
+            & Q(sell_in=args["sell_in"])
+            & Q(quality=args["quality"])
+        ).first()
         if item:
             item.delete()
         return item
@@ -70,7 +74,9 @@ class DB:
     def update_quality():
         db = get_db()
         for item in g.Inventory.objects():
-            itemObject = Factory.createItemObject([item.name, item.sell_in, item.quality])
+            itemObject = Factory.createItemObject(
+                [item.name, item.sell_in, item.quality]
+            )
             itemObject.update_quality()
             item.sell_in = itemObject.sell_in
             item.quality = itemObject.quality

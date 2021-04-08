@@ -48,7 +48,7 @@ expectedInventoryDay1 = [
         "name": "Conjured Mana Cake",
         "sell_in": 2,
         "quality": 4,
-    }
+    },
 ]
 
 
@@ -67,16 +67,18 @@ def test_get_item_by_name(client):
 @pytest.mark.db_get_item_by_quality
 def test_get_item_by_quality(client):
     rv = client.get("/item/quality/80")
-    assert json.loads(rv.data) == [{
-        "name": "Sulfuras, Hand of Ragnaros",
-        "sell_in": 0,
-        "quality": 80,
-    },
+    assert json.loads(rv.data) == [
+        {
+            "name": "Sulfuras, Hand of Ragnaros",
+            "sell_in": 0,
+            "quality": 80,
+        },
         {
             "name": "Sulfuras, Hand of Ragnaros",
             "sell_in": -1,
             "quality": 80,
-        }]
+        },
+    ]
 
 
 @pytest.mark.db_get_item_by_sell_in
@@ -93,7 +95,8 @@ def test_get_item_by_sell_in(client):
             "name": "Sulfuras, Hand of Ragnaros",
             "sell_in": -1,
             "quality": 80,
-        }]
+        },
+    ]
 
 
 @pytest.mark.db_delete_item
@@ -102,7 +105,9 @@ def test_delete_item(client):
     assert json.loads(rv1.data) == {"message": "Item Aged Brie deleted successfully"}
     rv2 = client.get("/inventory")
     expectedInventoryAfterDelete = expectedInventoryDay0.copy()
-    expectedInventoryAfterDelete.remove({"name": "Aged Brie", "sell_in": 2, "quality": 0})
+    expectedInventoryAfterDelete.remove(
+        {"name": "Aged Brie", "sell_in": 2, "quality": 0}
+    )
     assert json.loads(rv2.data) == expectedInventoryAfterDelete
 
 
@@ -112,11 +117,7 @@ def test_add_item(client):
     assert json.loads(rv1.data) == {"message": "Item Test added successfully"}
     rv2 = client.get("/inventory")
     expectedInventoryAfterPost = expectedInventoryDay0.copy()
-    expectedInventoryAfterPost.append({
-        "name": "Test",
-        "sell_in": 4,
-        "quality": 10
-    })
+    expectedInventoryAfterPost.append({"name": "Test", "sell_in": 4, "quality": 10})
     assert json.loads(rv2.data) == expectedInventoryAfterPost
 
 

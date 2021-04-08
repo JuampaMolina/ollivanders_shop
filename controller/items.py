@@ -17,7 +17,7 @@ class Items(Resource):
 
     def parseRequest(self):
         parser = reqparse.RequestParser(bundle_errors=True)
-        parser.add_argument('name', type=str, required=True, help='name required')
-        parser.add_argument('sell_in', type=int, required=True, help='sell_in required')
-        parser.add_argument('quality', type=int, required=True, help='quality required')
+        parser.add_argument("name", type=str, required=True, help="name required")
+        parser.add_argument("sell_in", type=int, required=True, help="sell_in required")
+        parser.add_argument("quality", type=int, required=True, help="quality required")
         return parser.parse_args()

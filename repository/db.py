@@ -92,6 +92,14 @@ class DB:
         return DB.get_inventory()
 
     ## USERS
+    @staticmethod
+    @marshal_with(users_resource_fields)
+    def get_users():
+        db = get_db()
+        users = []
+        for user in g.Users.objects():
+            users.append(user)
+        return users
 
     @staticmethod
     @marshal_with(users_resource_fields)

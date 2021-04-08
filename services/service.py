@@ -63,6 +63,16 @@ class Service:
     ## USERS
 
     @staticmethod
+    def get_users():
+        users = DB.get_users()
+        if not users:
+            response = jsonify({"message": "There are no users :("})
+            response.status_code = 404
+            return response
+        else:
+            return users
+
+    @staticmethod
     def register_user(args):
         DB.register_user(args)
         response = jsonify(

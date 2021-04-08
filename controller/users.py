@@ -5,6 +5,9 @@ from werkzeug import datastructures
 
 class Users(Resource):
 
+    def get(self):
+        return Service.get_users()
+
     def post(self):
         args = self.parseRequest()
         return Service.register_user(args)

@@ -5,6 +5,71 @@ from mongoengine import *
 
 from repository.models import Inventory, Users
 
+default_inventory = [
+    {
+        "name": "Aged Brie",
+        "sell_in": 2,
+        "quality": 0,
+    },
+    {
+        "name": "+5 Dexterity Vest",
+        "sell_in": 10,
+        "quality": 20,
+    },
+    {
+        "name": "Elixir of the Mongoose",
+        "sell_in": 5,
+        "quality": 7,
+    },
+    {
+        "name": "Sulfuras, Hand of Ragnaros",
+        "sell_in": 0,
+        "quality": 80,
+    },
+    {
+        "name": "Sulfuras, Hand of Ragnaros",
+        "sell_in": -1,
+        "quality": 80,
+    },
+    {
+        "name": "Backstage passes to a TAFKAL80ETC concert",
+        "sell_in": 15,
+        "quality": 20,
+    },
+    {
+        "name": "Backstage passes to a TAFKAL80ETC concert",
+        "sell_in": 10,
+        "quality": 49,
+    },
+    {
+        "name": "Backstage passes to a TAFKAL80ETC concert",
+        "sell_in": 5,
+        "quality": 49,
+    },
+    {
+        "name": "Conjured Mana Cake",
+        "sell_in": 3,
+        "quality": 6,
+    },
+]
+
+default_users = [
+    {
+        "user_name": "Charlos",
+        "email": "charlos@gmail.com",
+        "password": "test",
+        "credit": 50,
+        "inventory": []
+    },
+    {
+        "user_name": "Juampa",
+        "email": "juampa@gmail.com",
+        "password": "test",
+        "credit": 50,
+        "inventory": []
+    }
+]
+
 
 def get_db():
     if "db" not in g:
@@ -28,79 +93,15 @@ def close_db(e=None):
 def init_db():
     db = get_db()
 
-    default_inventory = [
-        {
-            "name": "Aged Brie",
-            "sell_in": 2,
-            "quality": 0,
-        },
-        {
-            "name": "+5 Dexterity Vest",
-            "sell_in": 10,
-            "quality": 20,
-        },
-        {
-            "name": "Elixir of the Mongoose",
-            "sell_in": 5,
-            "quality": 7,
-        },
-        {
-            "name": "Sulfuras, Hand of Ragnaros",
-            "sell_in": 0,
-            "quality": 80,
-        },
-        {
-            "name": "Sulfuras, Hand of Ragnaros",
-            "sell_in": -1,
-            "quality": 80,
-        },
-        {
-            "name": "Backstage passes to a TAFKAL80ETC concert",
-            "sell_in": 15,
-            "quality": 20,
-        },
-        {
-            "name": "Backstage passes to a TAFKAL80ETC concert",
-            "sell_in": 10,
-            "quality": 49,
-        },
-        {
-            "name": "Backstage passes to a TAFKAL80ETC concert",
-            "sell_in": 5,
-            "quality": 49,
-        },
-        {
-            "name": "Conjured Mana Cake",
-            "sell_in": 3,
-            "quality": 6,
-        },
-    ]
-
     for product in default_inventory:
         Inventory(
             name=product["name"], sell_in=product["sell_in"], quality=product["quality"]
         ).save()
 
-    default_users = [
-        {
-            "user_name": "Charlos",
-            "email": "charlos@gmail.com",
-            "password": "test",
-            "credit": 50,
-            "inventory": []
-        },
-        {
-            "user_name": "Juampa",
-            "email": "juampa@gmail.com",
-            "password": "test",
-            "credit": 50,
-            "inventory": []
-        }
-    ]
-
     for user in default_users:
         Users(
-            user_name=user["user_name"], email=user["email"], password=user["password"], credit=user["credit"], inventory=user["inventory"]
+            user_name=user["user_name"], email=user["email"], password=user["password"], credit=user["credit"],
+            inventory=user["inventory"]
         ).save()
 
 

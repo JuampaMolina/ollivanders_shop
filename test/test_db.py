@@ -132,6 +132,7 @@ def test_update_quality(client):
 
 # USERS TESTS
 
+
 @pytest.mark.db_get_users
 def test_get_users(client):
     rv = client.get("/user")
@@ -140,17 +141,21 @@ def test_get_users(client):
 
 @pytest.mark.db_register_user
 def test_register_user(client):
-    rv1 = client.post("/user?user_name=Test&email=test@gmail.com&password=test&credit=50")
+    rv1 = client.post(
+        "/user?user_name=Test&email=test@gmail.com&password=test&credit=50"
+    )
     assert json.loads(rv1.data) == {"message": "User Test added successfully"}
     rv2 = client.get("/user")
     expectedUsersAfterPost = expectedUsers.copy()
-    expectedUsersAfterPost.append({
-        "user_name": "Test",
-        "email": "test@gmail.com",
-        "password": "test",
-        "credit": 50,
-        "inventory": []
-    })
+    expectedUsersAfterPost.append(
+        {
+            "user_name": "Test",
+            "email": "test@gmail.com",
+            "password": "test",
+            "credit": 50,
+            "inventory": [],
+        }
+    )
     assert json.loads(rv2.data) == expectedUsersAfterPost
 
 
@@ -163,40 +168,36 @@ def test_buy_item(client):
     }
     rv2 = client.get("/user")
     expectedUsersBuyItem = expectedUsers.copy()
-    expectedUsersBuyItem.remove({
-        "user_name": "Juampa",
-        "email": "juampa@gmail.com",
-        "password": "test",
-        "credit": 50,
-        "inventory": []
-    })
-    expectedUsersBuyItem.append({
-        "user_name": "Juampa",
-        "email": "juampa@gmail.com",
-        "password": "test",
-        "credit": 43,
-        "inventory": [
-            {
-                "name": "Elixir of the Mongoose",
-                "sell_in": 5,
-                "quality": 7
-            }
-        ]
-    })
+    expectedUsersBuyItem.remove(
+        {
+            "user_name": "Juampa",
+            "email": "juampa@gmail.com",
+            "password": "test",
+            "credit": 50,
+            "inventory": [],
+        }
+    )
+    expectedUsersBuyItem.append(
+        {
+            "user_name": "Juampa",
+            "email": "juampa@gmail.com",
+            "password": "test",
+            "credit": 43,
+            "inventory": [
+                {"name": "Elixir of the Mongoose", "sell_in": 5, "quality": 7}
+            ],
+        }
+    )
     assert json.loads(rv2.data) == expectedUsersBuyItem
 
     # Case can't pay it
     rv3 = client.put("/buy?user_name=Juampa&name=Sulfuras, Hand of Ragnaros")
-    assert json.loads(rv3.data) == {
-        "message": "You do not have enough credits"
-    }
+    assert json.loads(rv3.data) == {"message": "You do not have enough credits"}
     rv4 = client.get("/user")
     assert json.loads(rv4.data) == expectedUsersBuyItem
 
     # Case item doesn't exist
     rv5 = client.put("/buy?user_name=Juampa&name=I don't exist")
-    assert json.loads(rv5.data) == {
-    "message": "No item found with that name"
-    }
+    assert json.loads(rv5.data) == {"message": "No item found with that name"}
     rv6 = client.get("/user")
     assert json.loads(rv6.data) == expectedUsersBuyItem

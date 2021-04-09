@@ -4,7 +4,6 @@ from services.service import Service
 
 
 class Buy(Resource):
-
     def put(self):
         args = self.parseRequest()
         return Service.buy_item(args)
@@ -12,6 +11,8 @@ class Buy(Resource):
     @staticmethod
     def parseRequest():
         parser = reqparse.RequestParser(bundle_errors=True)
-        parser.add_argument("user_name", type=str, required=True, help="user_name required")
+        parser.add_argument(
+            "user_name", type=str, required=True, help="user_name required"
+        )
         parser.add_argument("name", type=str, required=True, help="item name required")
         return parser.parse_args()

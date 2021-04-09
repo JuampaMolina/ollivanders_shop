@@ -85,7 +85,11 @@ class Service:
     def buy_item(args):
         DB.buy_item(args)
         response = jsonify(
-            {"message": "Congratulations {user} item {item} buyed successfully".format(user=args["user_name"], item=args["name"])}
+            {
+                "message": "Congratulations {user} item {item} buyed successfully".format(
+                    user=args["user_name"], item=args["name"]
+                )
+            }
         )
         response.status_code = 201
         return response

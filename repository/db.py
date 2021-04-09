@@ -18,7 +18,9 @@ class DB:
         "email": fields.String,
         "password": fields.String,
         "credit": fields.Integer,
-        "inventory": fields.List(fields.Nested(inventory_resource_fields))  # Lista de objetos Item(Inventory model)
+        "inventory": fields.List(
+            fields.Nested(inventory_resource_fields)
+        ),  # Lista de objetos Item(Inventory model)
     }
 
     @staticmethod
@@ -106,27 +108,24 @@ class DB:
     def register_user(args):
         db = get_db()
         g.Users(
-            user_name=args["user_name"], email=args["email"], password=args["password"], credit=args["credit"],
-            inventory=args["inventory"]
+            user_name=args["user_name"],
+            email=args["email"],
+            password=args["password"],
+            credit=args["credit"],
+            inventory=args["inventory"],
         ).save()
 
     @staticmethod
     def buy_item(args):
         db = get_db()
-        item = g.Inventory.objects(
-            Q(name=args["name"])).first()
+        item = g.Inventory.objects(Q(name=args["name"])).first()
 
         if not item:
             abort(404, message="No item found with that name")
 
-        itemDict = {
-            "name": item.name,
-            "sell_in": item.sell_in,
-            "quality": item.quality
-        }
+        itemDict = {"name": item.name, "sell_in": item.sell_in, "quality": item.quality}
 
-        user = g.Users.objects(
-            Q(user_name=args["user_name"])).first()
+        user = g.Users.objects(Q(user_name=args["user_name"])).first()
 
         if user.credit >= item.quality:
             inventory = user.inventory

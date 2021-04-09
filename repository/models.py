@@ -8,8 +8,8 @@ class Inventory(Document):
 
 
 class Users(Document):
-    user_name = StringField(required=True)
-    email = StringField(required=True)
-    password = StringField(required=True)
+    user_name = StringField(required=True, unique=True)
+    email = StringField(unique=True)
+    password = StringField()
     credit = IntField()
-    inventory = ListField(ReferenceField(Inventory))
+    inventory = ListField(DictField())

@@ -1,7 +1,7 @@
 from flask_restful import Resource, reqparse
 
 from services.service import Service
-from werkzeug import datastructures
+
 
 class Users(Resource):
 
@@ -12,7 +12,6 @@ class Users(Resource):
         args = self.parseRequest()
         return Service.register_user(args)
 
-
     @staticmethod
     def parseRequest():
         parser = reqparse.RequestParser(bundle_errors=True)
@@ -20,5 +19,5 @@ class Users(Resource):
         parser.add_argument("email", type=str, required=True, help="email required")
         parser.add_argument("password", type=str, required=True, help="password required")
         parser.add_argument("credit", type=int)
-        parser.add_argument("inventory", type=dict, action="append", required=False) # action append ojo
+        parser.add_argument("inventory", type=dict, action="append", required=False)  # action append ojo
         return parser.parse_args()

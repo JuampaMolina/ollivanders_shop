@@ -53,7 +53,7 @@ class Service:
         response = jsonify(
             {"message": "Item {} deleted successfully".format(item["name"])}
         )
-        response.status_code = 201
+        response.status_code = 200
         return response
 
     @staticmethod

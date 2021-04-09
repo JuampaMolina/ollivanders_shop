@@ -130,7 +130,7 @@ def test_update_quality(client):
     assert json.loads(rv.data) == expectedInventoryDay1
 
 
-# USERS
+# USERS TESTS
 
 @pytest.mark.db_get_users
 def test_get_users(client):
@@ -152,3 +152,51 @@ def test_register_user(client):
         "inventory": []
     })
     assert json.loads(rv2.data) == expectedUsersAfterPost
+
+
+@pytest.mark.db_buy_item
+def test_buy_item(client):
+    # Case can pay it and item exist
+    rv1 = client.put("/buy?user_name=Juampa&name=Elixir of the Mongoose")
+    assert json.loads(rv1.data) == {
+        "message": "Congratulations Juampa item Elixir of the Mongoose buyed successfully"
+    }
+    rv2 = client.get("/user")
+    expectedUsersBuyItem = expectedUsers.copy()
+    expectedUsersBuyItem.remove({
+        "user_name": "Juampa",
+        "email": "juampa@gmail.com",
+        "password": "test",
+        "credit": 50,
+        "inventory": []
+    })
+    expectedUsersBuyItem.append({
+        "user_name": "Juampa",
+        "email": "juampa@gmail.com",
+        "password": "test",
+        "credit": 43,
+        "inventory": [
+            {
+                "name": "Elixir of the Mongoose",
+                "sell_in": 5,
+                "quality": 7
+            }
+        ]
+    })
+    assert json.loads(rv2.data) == expectedUsersBuyItem
+
+    # Case can't pay it
+    rv3 = client.put("/buy?user_name=Juampa&name=Sulfuras, Hand of Ragnaros")
+    assert json.loads(rv3.data) == {
+        "message": "You do not have enough credits"
+    }
+    rv4 = client.get("/user")
+    assert json.loads(rv4.data) == expectedUsersBuyItem
+
+    # Case item doesn't exist
+    rv5 = client.put("/buy?user_name=Juampa&name=I don't exist")
+    assert json.loads(rv5.data) == {
+    "message": "No item found with that name"
+    }
+    rv6 = client.get("/user")
+    assert json.loads(rv6.data) == expectedUsersBuyItem

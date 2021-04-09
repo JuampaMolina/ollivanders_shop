@@ -2,6 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from flask_restful import Resource, Api
 
+from controller.buy import Buy
 from controller.inventory import Inventory
 from controller.items import Items
 from controller.quality import Quality
@@ -28,5 +29,6 @@ def create_app():
     api.add_resource(Sell_in, "/item/sell_in/<int:sell_in>")
     api.add_resource(UpdateQuality, "/update_quality")
     api.add_resource(Users, "/user")
+    api.add_resource(Buy, "/buy")
 
     return app

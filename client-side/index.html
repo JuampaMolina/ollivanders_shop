@@ -14,7 +14,8 @@
 </head>
 <body>
     <header>
-        <a href="./personalInventory.html"><h2>Ollivander's Shop</h2></a>
+        <h2>Ollivander's Shop</h2>
+        <a href="./personalInventory.html">Personal Inventory</a>
     </header>
     <main>
         <section class="filter">
@@ -34,9 +35,10 @@
         <section class="inventory-buttons">
             <button onclick="loadItems()">Reload Inventory</button>
             <button onclick="updateQuality()">Update Quality</button>
+            <button onclick="buyItem()">Buy Item</button>
         </section>
     </main>
-    <section class="form">
+    <section class="form index-form">
         <form class="add-del-item">
             <input type="text" name="name" id="name" required placeholder="Name">
             <input type="text" name="sell_in" id="sell_in" required placeholder="Sell In">
@@ -48,8 +50,6 @@
             </section>
         </form>
     </section>
-    <footer>
-    </footer>
 <script src="js/main.js"></script>
 </body>
 </html>

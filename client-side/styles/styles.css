@@ -24,13 +24,27 @@ a {
 header {
   display: flex;
   justify-content: center;
-  background: #25040c;
+  align-items: center;
+  background: #6e0d25;
+  border-bottom: 8px solid #25040c;
   padding: 20px;
 }
 
 header h2 {
   font-size: 32px;
   font-weight: bold;
+}
+
+header a {
+  position: absolute;
+  right: 30px;
+  border-bottom: 2px solid transparent;
+  margin-bottom: 6px;
+  transition: 0.3s;
+}
+
+header a:hover {
+  border-bottom: 2px solid #ffffeb;
 }
 
 main {
@@ -44,17 +58,28 @@ main .filter form {
   margin: 0 auto;
 }
 
+main .filter form input,
+select {
+  padding: 10px;
+  background: #6e0d25;
+  border: 2px solid #ffffeb;
+  border-radius: 5px;
+  color: #ffffeb;
+  outline: none;
+}
+
 /* Inventory */
 
 .inventory {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 100px;
 }
 
 .inventory .item-card {
-  width: 300px;
-  height: 450px;
+  width: 250px;
+  height: 400px;
   background: #6e0d25;
   border: 6px solid #25040c;
   border-radius: 15px;
@@ -63,15 +88,16 @@ main .filter form {
   justify-content: space-around;
   align-items: center;
   margin: 20px;
+  padding: 20px;
 }
 
 .inventory .item-card h3 {
-  font-size: 24px;
+  font-size: 20px;
   text-align: center;
 }
 
 .inventory .item-card i {
-  font-size: 7em;
+  font-size: 6em;
 }
 
 main .inventory .item-card .properties h4 {
@@ -82,7 +108,7 @@ main .inventory .item-card .properties h4 {
 main .inventory-buttons {
   display: flex;
   justify-content: space-evenly;
-  width: 40%;
+  width: 70%;
   margin: 40px auto;
 }
 
@@ -101,11 +127,24 @@ main .inventory-buttons button:hover {
   background: #48ad7c;
 }
 
+.personal-inventory {
+  margin-top: 250px;
+}
+
 /* Form */
 
 .form {
   background: #25040c;
-  padding: 40px 0;
+  position: absolute;
+  width: 100%;
+}
+
+.index-form::after {
+  content: "";
+  display: block;
+  position: relative;
+  height: calc(100vh - 284.5px - 334px - 20px);
+  background: #25040c;
 }
 
 .form form {

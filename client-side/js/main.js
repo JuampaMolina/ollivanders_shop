@@ -1,5 +1,32 @@
 const section = document.querySelector('.inventory');
 
+function makeCards(doc){
+    const card = document.createElement('div');
+                card.className = 'item-card'
+                card.innerHTML += `
+                    <h3>${doc.name}</h3>
+                    <i class="fas fa-hat-wizard"></i>
+                    <div class="properties">
+                        <h4>Sell In: ${doc.sell_in}</h4>
+                        <h4>Quality: ${doc.quality}</h4>
+                    </div>
+                `;
+                section.appendChild(card);
+}
+
+function removeCards() {
+    var e = document.querySelector(".inventory");
+        e.innerHTML = "";
+}
+
+function wait(ms)
+{
+    var d = new Date();
+    var d2 = null;
+    do { d2 = new Date(); }
+    while(d2-d < ms);
+}
+
 function loadItems() {
     removeCards();
     fetch('http://0.0.0.0:4000/inventory')
@@ -44,6 +71,8 @@ function addItem(e) {
         .catch((error) => {
             console.log(error.message);
         });
+    wait(300);
+    loadItems();
 }
 
 form.delete.addEventListener('click', deleteItem);
@@ -77,6 +106,8 @@ function deleteItem(e) {
         .catch((error) => {
             console.log(error.message);
         });
+    wait(300);
+    loadItems();
 }
 
 let filterForm = document.querySelector('.filter-item');
@@ -111,21 +142,28 @@ function updateQuality() {
         .catch(error => console.log('It was an error: ' + error.message))
 }
 
-function makeCards(doc){
-    const card = document.createElement('div');
-                card.className = 'item-card'
-                card.innerHTML += `
-                    <h3>${doc.name}</h3>
-                    <i class="fas fa-hat-wizard"></i>
-                    <div class="properties">
-                        <h4>Sell In: ${doc.sell_in}</h4>
-                        <h4>Quality: ${doc.quality}</h4>
-                    </div>
-                `;
-                section.appendChild(card);
-}
+function getPersonalInventory(e) {
+    e.preventDefault();
+    removeCards();
 
-function removeCards() {
-    var e = document.querySelector(".inventory");
-        e.innerHTML = "";
+    let data = {
+        user_name: formPersonalInventory.elements.name.value,
+        password: formPersonalInventory.elements.password.value
+    };
+
+    fetch('http://0.0.0.0:4000/user/inventory', {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json()) 
+        .then(data => {
+            data.forEach(doc => {
+                makeCards(doc);  // NO items that meet the criteria => no function data.forEach
+            });
+        })
+        .catch(error => console.log('It was an error: ' + error.message))
+
 }

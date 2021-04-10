@@ -6,9 +6,19 @@
   letter-spacing: 2px;
 }
 
+*::selection {
+  background-color: #ffffeb;
+  color: #6e0d25;
+}
+
 body {
   background: #151415;
   color: #ffffeb;
+}
+
+a {
+  color: #ffffeb;
+  text-decoration: none;
 }
 
 header {
@@ -36,13 +46,13 @@ main .filter form {
 
 /* Inventory */
 
-main .inventory {
+.inventory {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-main .inventory .item-card {
+.inventory .item-card {
   width: 300px;
   height: 450px;
   background: #6e0d25;
@@ -55,12 +65,12 @@ main .inventory .item-card {
   margin: 20px;
 }
 
-main .inventory .item-card h3 {
+.inventory .item-card h3 {
   font-size: 24px;
   text-align: center;
 }
 
-main .inventory .item-card i {
+.inventory .item-card i {
   font-size: 7em;
 }
 
@@ -131,6 +141,7 @@ main .inventory-buttons button:hover {
   display: flex;
   justify-content: flex-end;
   margin: 20px;
+  gap: 20px;
 }
 
 .form form .form-buttons input {
@@ -139,7 +150,6 @@ main .inventory-buttons button:hover {
   border: 2px solid #ffffeb;
   border-radius: 4px;
   color: #ffffeb;
-  margin-left: 20px;
   transition: 0.2s;
 }
 
@@ -149,4 +159,12 @@ main .inventory-buttons button:hover {
 
 .form form .form-buttons input.delete:hover {
   background: #6e0d25;
+}
+
+.form form.personal-inventory input {
+  width: 100%;
+}
+
+.form form.personal-inventory .form-buttons {
+  justify-content: space-between;
 }

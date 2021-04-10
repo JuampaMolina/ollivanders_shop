@@ -93,3 +93,14 @@ class Service:
         )
         response.status_code = 201
         return response
+
+    @staticmethod
+    def get_personal_inventory(args):
+        personal_inventory = DB.get_personal_inventory(args)
+        if personal_inventory:
+            return personal_inventory
+        else:
+            response = jsonify({"message": "The user {} doen't have any items".format(args["user_name"])})
+            response.status_code = 404
+            return response
+

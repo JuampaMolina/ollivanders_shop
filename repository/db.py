@@ -139,3 +139,18 @@ class DB:
                 item.delete()
         else:
             abort(404, message="You do not have enough credits")
+
+    @staticmethod
+    def get_personal_inventory(args):
+        db = get_db()
+        user = g.Users.objects(Q(user_name=args["user_name"])
+                               & Q(password=args["password"])).first()
+
+        personal_inventory = []
+
+        if user:
+            for item in user.inventory:
+                personal_inventory.append(item)
+            return personal_inventory
+        else:
+            abort(404, message="There is no user with this name and password")

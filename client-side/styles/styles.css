@@ -1,68 +1,152 @@
-:root {
-    /* Colors */
-    --black: #191919;
-    --gray: #CED0CE;
-    --orange: #F15025;
-    --white: #FFFFFF;
-    --platinum: #E6E8E6;
-}
-
 * {
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-    font-family: 'Open Sans', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Libre Baskerville", serif;
+  letter-spacing: 2px;
 }
 
 body {
-    background-color: var(--black);
+  background: #151415;
+  color: #ffffeb;
 }
 
-.card h3 {
-    color: var(--orange);
-    margin-bottom: 30px;
+header {
+  display: flex;
+  justify-content: center;
+  background: #25040c;
+  padding: 20px;
 }
 
-.inventory_title {
-    font-size: 40px;
-    color: var(--orange);
-    text-align: center;
+header h2 {
+  font-size: 32px;
+  font-weight: bold;
 }
 
-.parent {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+main {
+  width: 80%;
+  margin: 40px auto;
 }
 
-.card {
-    width: 300px;
-    height: 180px;
-    margin: 20px;
-    padding: 10px 40px;
-    background: var(--gray);
-    border: 3px solid var(--orange);
-    border-radius: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-items: center;
+/* Filter */
+
+main .filter form {
+  margin: 0 auto;
 }
 
-div.button {
-    margin-top: 80px;
-    background: var(--gray);
-    display: inline-block;
-    color: var(--orange);
-    border: 2px solid var(--orange);
-    padding: 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 30px;
-    text-align: center;
+/* Inventory */
+
+main .inventory {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.buttons_section {
-    align-items: center;
-    text-align: center;
+main .inventory .item-card {
+  width: 300px;
+  height: 450px;
+  background: #6e0d25;
+  border: 6px solid #25040c;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px;
+}
+
+main .inventory .item-card h3 {
+  font-size: 24px;
+  text-align: center;
+}
+
+main .inventory .item-card i {
+  font-size: 7em;
+}
+
+main .inventory .item-card .properties h4 {
+  margin: 10px;
+  text-align: center;
+}
+
+main .inventory-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  width: 40%;
+  margin: 40px auto;
+}
+
+main .inventory-buttons button {
+  padding: 10px;
+  background: none;
+  color: #ffffeb;
+  border: 2px solid #ffffeb;
+  border-radius: 4px;
+  width: 200px;
+  text-align: center;
+  transition: 0.2s;
+}
+
+main .inventory-buttons button:hover {
+  background: #48ad7c;
+}
+
+/* Form */
+
+.form {
+  background: #25040c;
+  padding: 40px 0;
+}
+
+.form form {
+  width: 30%;
+  margin: 40px auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.form form input {
+  padding: 10px;
+  background: #6e0d25;
+  border: 2px solid #ffffeb;
+  border-radius: 5px;
+  color: #ffffeb;
+  outline: none;
+  width: 48%;
+}
+
+.form form input[name="name"] {
+  width: 100%;
+}
+
+::placeholder {
+  color: #ffffeb;
+  opacity: 0.6;
+}
+
+.form form .form-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px;
+}
+
+.form form .form-buttons input {
+  padding: 10px;
+  background: none;
+  border: 2px solid #ffffeb;
+  border-radius: 4px;
+  color: #ffffeb;
+  margin-left: 20px;
+  transition: 0.2s;
+}
+
+.form form .form-buttons input:hover {
+  background: #48ad7c;
+}
+
+.form form .form-buttons input.delete:hover {
+  background: #6e0d25;
 }

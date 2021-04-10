@@ -1,8 +1,8 @@
-const section = document.querySelector('.parent');
+const section = document.querySelector('.inventory');
 
 function loadItems() {
     removeCards();
-    fetch('http://127.0.0.1:5000/inventory')
+    fetch('http://0.0.0.0:4000/inventory')
         .then(response => response.json()) //response to JSON
         .then(data => {
             data.forEach(doc => {
@@ -12,9 +12,96 @@ function loadItems() {
         .catch(error => console.log('It was an error: ' + error.message))
 }
 
+let form = document.querySelector('.add-del-item');
+form.add.addEventListener('click', addItem)
+
+function addItem(e) {
+    e.preventDefault();
+
+    let data = {
+        name: form.elements.name.value,
+        sell_in: form.elements.sell_in.value,
+        quality: form.elements.quality.value,
+
+    };
+
+    fetch('http://0.0.0.0:4000/item', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then((response) => {
+            if (response.ok) {
+                console.log("Response OK Status:", response.status);
+                console.log("Reponse OK status text:", response.statusText);
+            } else {
+                console.log("Response Status:", response.status);
+                console.log("Reponse statuts text:", response.statusText);
+            }
+        })
+        .catch((error) => {
+            console.log(error.message);
+        });
+}
+
+form.delete.addEventListener('click', deleteItem);
+
+function deleteItem(e) {
+    e.preventDefault();
+    
+    let data = { 
+        name: form.elements.name.value,            
+        sell_in: form.elements.sell_in.value,
+        quality: form.elements.quality.value 
+
+    };
+
+    fetch('http://0.0.0.0:4000/item', {
+        method: 'DELETE',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then((response) => {
+            if (response.ok) {
+                console.log("Response OK Status:", response.status);
+                console.log("Reponse OK status text:", response.statusText);
+            } else {
+                console.log("Response Status:", response.status);
+                console.log("Reponse statuts text:", response.statusText);
+            }
+        })
+        .catch((error) => {
+            console.log(error.message);
+        });
+}
+
+let filterForm = document.querySelector('.filter-item');
+filterForm.filter.addEventListener('click', filterItem);
+
+function filterItem(e) {
+    e.preventDefault();
+    
+    let property = document.getElementById("property").value;
+    let value = document.getElementById("itemValue").value;
+    
+    removeCards();
+    fetch(`http://0.0.0.0:4000/item/${property}/${value}`)
+        .then(response => response.json()) 
+        .then(data => {
+            data.forEach(doc => {
+                makeCards(doc);  // NO items that meet the criteria => no function data.forEach
+            });
+        })
+        .catch(error => console.log('It was an error: ' + error.message))
+}
+
 function updateQuality() {
     removeCards();
-    fetch('http://127.0.0.1:5000/update_quality')
+    fetch('http://0.0.0.0:4000/update_quality')
         .then(response => response.json()) //response to JSON
         .then(data => {
             data.forEach(doc => {
@@ -26,16 +113,19 @@ function updateQuality() {
 
 function makeCards(doc){
     const card = document.createElement('div');
-                card.className = 'card'
+                card.className = 'item-card'
                 card.innerHTML += `
                     <h3>${doc.name}</h3>
-                    <h4>Sell In: ${doc.sell_in}</h4>
-                    <h4>Quality: ${doc.quality}</h4>
+                    <i class="fas fa-hat-wizard"></i>
+                    <div class="properties">
+                        <h4>Sell In: ${doc.sell_in}</h4>
+                        <h4>Quality: ${doc.quality}</h4>
+                    </div>
                 `;
                 section.appendChild(card);
 }
 
 function removeCards() {
-    var e = document.querySelector(".parent");
+    var e = document.querySelector(".inventory");
         e.innerHTML = "";
 }

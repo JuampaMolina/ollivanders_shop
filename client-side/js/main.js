@@ -32,9 +32,13 @@ function loadItems() {
     fetch('http://0.0.0.0:4000/inventory')
         .then(response => response.json()) //response to JSON
         .then(data => {
-            data.forEach(doc => {
-                makeCards(doc);
-            });
+            if (Array.isArray(data)) {
+                data.forEach(doc => {
+                    makeCards(doc); 
+                });
+            } else {
+                alert(data.message)
+            }
         })
         .catch(error => console.log('It was an error: ' + error.message))
 }
@@ -123,9 +127,13 @@ function filterItem(e) {
     fetch(`http://0.0.0.0:4000/item/${property}/${value}`)
         .then(response => response.json()) 
         .then(data => {
-            data.forEach(doc => {
-                makeCards(doc);  // NO items that meet the criteria => no function data.forEach
-            });
+            if (Array.isArray(data)) {
+                data.forEach(doc => {
+                    makeCards(doc); 
+                });
+            } else {
+                alert(data.message)
+            }
         })
         .catch(error => console.log('It was an error: ' + error.message))
 }
@@ -133,11 +141,15 @@ function filterItem(e) {
 function updateQuality() {
     removeCards();
     fetch('http://0.0.0.0:4000/update_quality')
-        .then(response => response.json()) //response to JSON
+        .then(response => response.json())
         .then(data => {
-            data.forEach(doc => {
-                makeCards(doc);
-            });
+            if (Array.isArray(data)) {
+                data.forEach(doc => {
+                    makeCards(doc); 
+                });
+            } else {
+                alert(data.message)
+            }
         })
         .catch(error => console.log('It was an error: ' + error.message))
 }
@@ -160,10 +172,38 @@ function getPersonalInventory(e) {
     })
         .then(response => response.json()) 
         .then(data => {
-            data.forEach(doc => {
-                makeCards(doc);  // NO items that meet the criteria => no function data.forEach
-            });
+            if (Array.isArray(data)) {
+                data.forEach(doc => {
+                    makeCards(doc); 
+                });
+            } else {
+                alert(data.message)
+            }
         })
         .catch(error => console.log('It was an error: ' + error.message))
 
+}
+
+function buyItem() {
+    let user = prompt("Introduzca su nombre de usuario:");
+    let item = prompt("¿Que item desea comprar?");
+
+    let data = {
+        user_name: user,
+        name: item
+    };
+
+    fetch('http://0.0.0.0:4000/buy', {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json()) 
+        .then(data => {
+                alert(data.message)
+            }
+        )
+        .catch(error => console.log('It was an error: ' + error.message))
 }

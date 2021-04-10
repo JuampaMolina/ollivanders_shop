@@ -40,9 +40,13 @@ function getPersonalInventory(e) {
     })
         .then(response => response.json()) 
         .then(data => {
-            data.forEach(doc => {
-                makeCards(doc);  // NO items that meet the criteria => no function data.forEach
-            });
+            if (Array.isArray(data)) {
+                data.forEach(doc => {
+                    makeCards(doc); 
+                });
+            } else {
+                alert(data.message)
+            }
         })
         .catch(error => console.log('It was an error: ' + error.message))
 

@@ -59,3 +59,37 @@ class Service:
     @staticmethod
     def update_quality():
         return DB.update_quality()
+
+    ## USERS
+
+    @staticmethod
+    def get_users():
+        users = DB.get_users()
+        if not users:
+            response = jsonify({"message": "There are no users :("})
+            response.status_code = 404
+            return response
+        else:
+            return users
+
+    @staticmethod
+    def register_user(args):
+        DB.register_user(args)
+        response = jsonify(
+            {"message": "User {} added successfully".format(args["user_name"])}
+        )
+        response.status_code = 201
+        return response
+
+    @staticmethod
+    def buy_item(args):
+        DB.buy_item(args)
+        response = jsonify(
+            {
+                "message": "Congratulations {user} item {item} buyed successfully".format(
+                    user=args["user_name"], item=args["name"]
+                )
+            }
+        )
+        response.status_code = 201
+        return response

@@ -100,7 +100,7 @@ class Service:
         if personal_inventory:
             return personal_inventory
         else:
-            response = jsonify({"message": "The user {} doen't have any items".format(args["user_name"])})
+            response = jsonify({"message": "The user {} doesn't have any items".format(args["user_name"])})
             response.status_code = 404
             return response
 

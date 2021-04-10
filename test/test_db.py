@@ -201,3 +201,19 @@ def test_buy_item(client):
     assert json.loads(rv5.data) == {"message": "No item found with that name"}
     rv6 = client.get("/user")
     assert json.loads(rv6.data) == expectedUsersBuyItem
+
+@pytest.mark.db_get_personal_inventory
+def test_get_personal_inventory(client):
+    # Juampa buys item
+    rv1 = client.put("/buy?user_name=Juampa&name=Elixir of the Mongoose")
+    assert json.loads(rv1.data) == {"message": "Congratulations Juampa item Elixir of the Mongoose buyed successfully"}
+
+    # User have items
+    rv2 = client.put("/user/inventory?user_name=Juampa&password=test")
+    assert json.loads(rv2.data) == [
+        {
+            "name": "Elixir of the Mongoose",
+            "sell_in": 3,
+            "quality": 5
+        }
+    ]

@@ -4,7 +4,7 @@ from services.service import Service
 
 
 class PersonalInventory(Resource):
-    def get(self):
+    def put(self):
         args = self.parseRequest()
         return Service.get_personal_inventory(args)
 

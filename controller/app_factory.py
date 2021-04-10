@@ -5,6 +5,7 @@ from flask_restful import Resource, Api
 from controller.buy import Buy
 from controller.inventory import Inventory
 from controller.items import Items
+from controller.personal_inventory import PersonalInventory
 from controller.quality import Quality
 from controller.sell_in import Sell_in
 from controller.update_quality import UpdateQuality
@@ -30,5 +31,6 @@ def create_app():
     api.add_resource(UpdateQuality, "/update_quality")
     api.add_resource(Users, "/user")
     api.add_resource(Buy, "/buy")
+    api.add_resource(PersonalInventory, "/user/inventory")
 
     return app

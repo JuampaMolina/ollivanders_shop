@@ -226,8 +226,8 @@ Devuelve una lista de documentos de la colección inventario, cuyo sell in es me
 ```
 > /item/sell_in/3
 
-###/item/quality/<quality>
-####GET
+### /item/quality/<quality>
+#### GET
 Devuelve una lista de documentos de la colección inventario, cuya quality es igual a la indicada.
 
 ```
@@ -444,7 +444,7 @@ Perfeccionar el sistema de usuarios para poder iniciar sesión y mantenerla inic
 Un sistema de venta de items entre los usuarios, para poder vender los items adquiridos y recuperar créditos.
 
 #### Frontend
-Consideramos que ha faltado planificación y orden a la hora de realizar el front, al dejarlo para el final nos hemos topado con algunos pequeños problemas que han hecho que hagamos cosas en el front que posiblemente hubieran estado mejor en el back. 
+Consideramos que ha faltado planificación y orden a la hora de realizar el front, al dejarlo para el final nos hemos topado con algunos pequeños problemas que han hecho que hagamos cosas en el front que posiblemente hubieran estado mejor en el back.
 
 Los estilos deberían ser más reutilizables y no tan redundantes en muchos casos, para evitar repetir código.
 

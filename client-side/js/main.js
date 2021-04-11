@@ -1,4 +1,6 @@
-const section = document.querySelector('.inventory');
+var ip = 'http://0.0.0.0:4000'
+
+var section = document.querySelector('.inventory');
 
 function makeCards(doc){
     const card = document.createElement('div');
@@ -32,7 +34,7 @@ function wait(ms)
 
 function loadItems() {
     removeCards();
-    fetch('http://0.0.0.0:4000/inventory')
+    fetch(`${ip}/inventory`)
         .then(response => response.json()) //response to JSON
         .then(data => {
             if (Array.isArray(data)) {
@@ -59,7 +61,7 @@ function addItem(e) {
 
     };
 
-    fetch('http://0.0.0.0:4000/item', {
+    fetch(`${ip}/item`, {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -94,7 +96,7 @@ function deleteItem(e) {
 
     };
 
-    fetch('http://0.0.0.0:4000/item', {
+    fetch(`${ip}/item`, {
         method: 'DELETE',
         body: JSON.stringify(data),
         headers: {
@@ -127,7 +129,7 @@ function filterItem(e) {
     let value = document.getElementById("itemValue").value;
     
     removeCards();
-    fetch(`http://0.0.0.0:4000/item/${property}/${value}`)
+    fetch(`${ip}/item/${property}/${value}`)
         .then(response => response.json()) 
         .then(data => {
             if (Array.isArray(data)) {
@@ -143,7 +145,7 @@ function filterItem(e) {
 
 function updateQuality() {
     removeCards();
-    fetch('http://0.0.0.0:4000/update_quality')
+    fetch(`${ip}/update_quality`)
         .then(response => response.json())
         .then(data => {
             if (Array.isArray(data)) {
@@ -166,7 +168,7 @@ function getPersonalInventory(e) {
         password: formPersonalInventory.elements.password.value
     };
 
-    fetch('http://0.0.0.0:4000/user/inventory', {
+    fetch(`${ip}/user/inventory`, {
         method: 'PUT',
         body: JSON.stringify(data),
         headers: {
@@ -206,7 +208,7 @@ function buyItem(button){
         quality: item.getAttribute("quality")
     };
 
-    fetch('http://0.0.0.0:4000/buy', {
+    fetch(`${ip}/buy`, {
         method: 'PUT',
         body: JSON.stringify(data),
         headers: {

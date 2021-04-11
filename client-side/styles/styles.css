@@ -166,6 +166,16 @@ main .inventory-buttons button:hover {
 
 /* Form */
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 .form {
   background: #25040c;
   position: absolute;

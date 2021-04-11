@@ -1,4 +1,4 @@
-var ip = 'http://0.0.0.0:4000'
+var ip = 'http://sandbox-ed.northeurope.cloudapp.azure.com'
 
 var section = document.querySelector('.inventory');
 
@@ -61,27 +61,27 @@ function addItem(e) {
 
     };
 
-    fetch(`${ip}/item`, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-        .then((response) => {
-            if (response.ok) {
-                console.log("Response OK Status:", response.status);
-                console.log("Reponse OK status text:", response.statusText);
-            } else {
-                console.log("Response Status:", response.status);
-                console.log("Reponse statuts text:", response.statusText);
+    if (data.name === ""|| data.sell_in === ""|| data.quality === "") {
+        alert("You must fill all fields")
+    } else {
+        fetch(`${ip}/item`, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
             }
         })
-        .catch((error) => {
-            console.log(error.message);
-        });
-    wait(500);
-    loadItems();
+            .then(response => response.json()) 
+            .then(data => {
+                    alert(data.message)
+                }
+            )
+            .catch((error) => {
+                console.log(error.message);
+            });
+        wait(500);
+        loadItems();
+    }
 }
 
 form.delete.addEventListener('click', deleteItem);
@@ -95,28 +95,27 @@ function deleteItem(e) {
         quality: form.elements.quality.value 
 
     };
-
-    fetch(`${ip}/item`, {
-        method: 'DELETE',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-        .then((response) => {
-            if (response.ok) {
-                console.log("Response OK Status:", response.status);
-                console.log("Reponse OK status text:", response.statusText);
-            } else {
-                console.log("Response Status:", response.status);
-                console.log("Reponse statuts text:", response.statusText);
+    if (data.name === ""|| data.sell_in === ""|| data.quality === "") {
+        alert("You must fill all fields")
+    } else {
+        fetch(`${ip}/item`, {
+            method: 'DELETE',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
             }
         })
-        .catch((error) => {
-            console.log(error.message);
-        });
-    wait(500);
-    loadItems();
+            .then(response => response.json()) 
+            .then(data => {
+                    alert(data.message)
+                }
+            )
+            .catch((error) => {
+                console.log(error.message);
+            });
+        wait(500);
+        loadItems();
+    }
 }
 
 let filterForm = document.querySelector('.filter-item');

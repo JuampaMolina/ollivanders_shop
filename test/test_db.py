@@ -1,5 +1,4 @@
 import json
-from test.conftest import SetupTestDB
 from repository.db_engine import default_inventory, default_users
 import pytest
 

@@ -180,8 +180,8 @@ Devuelve una lista de todos los documentos de la colección inventario.
 	]
 ```
 
-###/item/name/<name>
-####GET
+### /item/name/<name>
+#### GET
 Devuelve una lista de documentos de la colección inventario, cuyo nombre coincide con el indicado.
 
 ```

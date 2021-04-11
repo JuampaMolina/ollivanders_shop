@@ -10,7 +10,10 @@ function makeCards(doc){
                         <h4>Sell In: ${doc.sell_in}</h4>
                         <h4>Quality: ${doc.quality}</h4>
                     </div>
-                `;
+                    <button onclick="buyItem(this)">Buy</button`; 
+                card.setAttribute("name", doc.name)
+                card.setAttribute("sell_in", doc.sell_in)
+                card.setAttribute("quality", doc.quality)
                 section.appendChild(card);
 }
 
@@ -75,7 +78,7 @@ function addItem(e) {
         .catch((error) => {
             console.log(error.message);
         });
-    wait(300);
+    wait(500);
     loadItems();
 }
 
@@ -110,7 +113,7 @@ function deleteItem(e) {
         .catch((error) => {
             console.log(error.message);
         });
-    wait(300);
+    wait(500);
     loadItems();
 }
 
@@ -184,13 +187,23 @@ function getPersonalInventory(e) {
 
 }
 
-function buyItem() {
-    let user = prompt("Introduzca su nombre de usuario:");
-    let item = prompt("¿Que item desea comprar?");
+function buyItem(button){
+    let item = button.parentElement;
+    let user = prompt("Introduce your user name:");
+    if (user===null) {
+        return;
+    }
+    let password = prompt(`Introduce the password for the user ${user}`)
+    if (password===null) {
+        return;
+    }
 
     let data = {
         user_name: user,
-        name: item
+        password: password,
+        name: item.getAttribute("name"),
+        sell_in: item.getAttribute("sell_in"),
+        quality: item.getAttribute("quality")
     };
 
     fetch('http://0.0.0.0:4000/buy', {
@@ -206,4 +219,6 @@ function buyItem() {
             }
         )
         .catch(error => console.log('It was an error: ' + error.message))
+    wait(500);
+    loadItems();
 }

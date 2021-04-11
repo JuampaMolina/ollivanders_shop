@@ -1,6 +1,6 @@
 from flask import jsonify
 from flask_restful import abort
-
+from mongoengine import errors
 from repository.db import DB
 
 
@@ -53,9 +53,61 @@ class Service:
         response = jsonify(
             {"message": "Item {} deleted successfully".format(item["name"])}
         )
-        response.status_code = 201
+        response.status_code = 200
         return response
 
     @staticmethod
     def update_quality():
         return DB.update_quality()
+
+    ## USERS
+
+    @staticmethod
+    def get_users():
+        users = DB.get_users()
+        if not users:
+            response = jsonify({"message": "There are no users :("})
+            response.status_code = 404
+            return response
+        else:
+            return users
+
+    @staticmethod
+    def register_user(args):
+        try:
+            DB.register_user(args)
+            response = jsonify(
+                {"message": "User {} added successfully".format(args["user_name"])}
+            )
+            response.status_code = 201
+        except errors.NotUniqueError:
+            response = jsonify(
+                {"message": "The user {} already exists".format(args["user_name"])}
+            )
+            response.status_code = 409
+        finally:
+            return response
+
+    @staticmethod
+    def buy_item(args):
+        DB.buy_item(args)
+        response = jsonify(
+            {
+                "message": "Congratulations {user}! {item} buyed successfully".format(
+                    user=args["user_name"], item=args["name"]
+                )
+            }
+        )
+        response.status_code = 201
+        return response
+
+    @staticmethod
+    def get_personal_inventory(args):
+        personal_inventory = DB.get_personal_inventory(args)
+        if personal_inventory:
+            return personal_inventory
+        else:
+            response = jsonify({"message": "The user {} doesn't have any items".format(args["user_name"])})
+            response.status_code = 404
+            return response
+

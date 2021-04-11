@@ -1,41 +1,225 @@
-const section = document.querySelector('.parent');
+var ip = 'http://sandbox-ed.northeurope.cloudapp.azure.com'
+
+var section = document.querySelector('.inventory');
+
+function makeCards(doc){
+    const card = document.createElement('div');
+                card.className = 'item-card'
+                card.innerHTML += `
+                    <h3>${doc.name}</h3>
+                    <i class="fas fa-hat-wizard"></i>
+                    <div class="properties">
+                        <h4>Sell In: ${doc.sell_in}</h4>
+                        <h4>Quality: ${doc.quality}</h4>
+                    </div>
+                    <button onclick="buyItem(this)">Buy</button`; 
+                card.setAttribute("name", doc.name)
+                card.setAttribute("sell_in", doc.sell_in)
+                card.setAttribute("quality", doc.quality)
+                section.appendChild(card);
+}
+
+function removeCards() {
+    var e = document.querySelector(".inventory");
+        e.innerHTML = "";
+}
+
+function wait(ms)
+{
+    var d = new Date();
+    var d2 = null;
+    do { d2 = new Date(); }
+    while(d2-d < ms);
+}
 
 function loadItems() {
     removeCards();
-    fetch('http://127.0.0.1:5000/inventory')
+    fetch(`${ip}/inventory`)
         .then(response => response.json()) //response to JSON
         .then(data => {
-            data.forEach(doc => {
-                makeCards(doc);
+            if (Array.isArray(data)) {
+                data.forEach(doc => {
+                    makeCards(doc); 
+                });
+            } else {
+                alert(data.message)
+            }
+        })
+        .catch(error => console.log('It was an error: ' + error.message))
+}
+
+let form = document.querySelector('.add-del-item');
+form.add.addEventListener('click', addItem)
+
+function addItem(e) {
+    e.preventDefault();
+
+    let data = {
+        name: form.elements.name.value,
+        sell_in: form.elements.sell_in.value,
+        quality: form.elements.quality.value,
+
+    };
+
+    if (data.name === ""|| data.sell_in === ""|| data.quality === "") {
+        alert("You must fill all fields")
+    } else {
+        fetch(`${ip}/item`, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json()) 
+            .then(data => {
+                    alert(data.message)
+                }
+            )
+            .catch((error) => {
+                console.log(error.message);
             });
+        wait(500);
+        loadItems();
+    }
+}
+
+form.delete.addEventListener('click', deleteItem);
+
+function deleteItem(e) {
+    e.preventDefault();
+    
+    let data = { 
+        name: form.elements.name.value,            
+        sell_in: form.elements.sell_in.value,
+        quality: form.elements.quality.value 
+
+    };
+    if (data.name === ""|| data.sell_in === ""|| data.quality === "") {
+        alert("You must fill all fields")
+    } else {
+        fetch(`${ip}/item`, {
+            method: 'DELETE',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json()) 
+            .then(data => {
+                    alert(data.message)
+                }
+            )
+            .catch((error) => {
+                console.log(error.message);
+            });
+        wait(500);
+        loadItems();
+    }
+}
+
+let filterForm = document.querySelector('.filter-item');
+filterForm.filter.addEventListener('click', filterItem);
+
+function filterItem(e) {
+    e.preventDefault();
+    
+    let property = document.getElementById("property").value;
+    let value = document.getElementById("itemValue").value;
+    
+    removeCards();
+    fetch(`${ip}/item/${property}/${value}`)
+        .then(response => response.json()) 
+        .then(data => {
+            if (Array.isArray(data)) {
+                data.forEach(doc => {
+                    makeCards(doc); 
+                });
+            } else {
+                alert(data.message)
+            }
         })
         .catch(error => console.log('It was an error: ' + error.message))
 }
 
 function updateQuality() {
     removeCards();
-    fetch('http://127.0.0.1:5000/update_quality')
-        .then(response => response.json()) //response to JSON
+    fetch(`${ip}/update_quality`)
+        .then(response => response.json())
         .then(data => {
-            data.forEach(doc => {
-                makeCards(doc);
-            });
+            if (Array.isArray(data)) {
+                data.forEach(doc => {
+                    makeCards(doc); 
+                });
+            } else {
+                alert(data.message)
+            }
         })
         .catch(error => console.log('It was an error: ' + error.message))
 }
 
-function makeCards(doc){
-    const card = document.createElement('div');
-                card.className = 'card'
-                card.innerHTML += `
-                    <h3>${doc.name}</h3>
-                    <h4>Sell In: ${doc.sell_in}</h4>
-                    <h4>Quality: ${doc.quality}</h4>
-                `;
-                section.appendChild(card);
+function getPersonalInventory(e) {
+    e.preventDefault();
+    removeCards();
+
+    let data = {
+        user_name: formPersonalInventory.elements.name.value,
+        password: formPersonalInventory.elements.password.value
+    };
+
+    fetch(`${ip}/user/inventory`, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json()) 
+        .then(data => {
+            if (Array.isArray(data)) {
+                data.forEach(doc => {
+                    makeCards(doc); 
+                });
+            } else {
+                alert(data.message)
+            }
+        })
+        .catch(error => console.log('It was an error: ' + error.message))
+
 }
 
-function removeCards() {
-    var e = document.querySelector(".parent");
-        e.innerHTML = "";
+function buyItem(button){
+    let item = button.parentElement;
+    let user = prompt("Introduce your user name:");
+    if (user===null) {
+        return;
+    }
+    let password = prompt(`Introduce the password for the user ${user}`)
+    if (password===null) {
+        return;
+    }
+
+    let data = {
+        user_name: user,
+        password: password,
+        name: item.getAttribute("name"),
+        sell_in: item.getAttribute("sell_in"),
+        quality: item.getAttribute("quality")
+    };
+
+    fetch(`${ip}/buy`, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json()) 
+        .then(data => {
+                alert(data.message)
+            }
+        )
+        .catch(error => console.log('It was an error: ' + error.message))
+    wait(500);
+    loadItems();
 }

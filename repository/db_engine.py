@@ -3,7 +3,72 @@ from flask import g
 from flask.cli import with_appcontext
 from mongoengine import *
 
-from repository.model import Inventory
+from repository.models import Inventory, Users
+
+default_inventory = [
+    {
+        "name": "Aged Brie",
+        "sell_in": 2,
+        "quality": 0,
+    },
+    {
+        "name": "+5 Dexterity Vest",
+        "sell_in": 10,
+        "quality": 20,
+    },
+    {
+        "name": "Elixir of the Mongoose",
+        "sell_in": 5,
+        "quality": 7,
+    },
+    {
+        "name": "Sulfuras, Hand of Ragnaros",
+        "sell_in": 0,
+        "quality": 80,
+    },
+    {
+        "name": "Sulfuras, Hand of Ragnaros",
+        "sell_in": -1,
+        "quality": 80,
+    },
+    {
+        "name": "Backstage Pass",
+        "sell_in": 15,
+        "quality": 20,
+    },
+    {
+        "name": "Backstage Pass",
+        "sell_in": 10,
+        "quality": 49,
+    },
+    {
+        "name": "Backstage Pass",
+        "sell_in": 5,
+        "quality": 49,
+    },
+    {
+        "name": "Conjured Mana Cake",
+        "sell_in": 3,
+        "quality": 6,
+    },
+]
+
+default_users = [
+    {
+        "user_name": "Charlos",
+        "email": "charlos@gmail.com",
+        "password": "test",
+        "credit": 50,
+        "inventory": [],
+    },
+    {
+        "user_name": "Juampa",
+        "email": "juampa@gmail.com",
+        "password": "test",
+        "credit": 50,
+        "inventory": [],
+    },
+]
 
 
 def get_db():
@@ -13,6 +78,7 @@ def get_db():
             host="mongodb+srv://admin:admin@ollivanders.8xp7x.mongodb.net/ollivanders_shop?retryWrites=true&w=majority",
         )
         g.Inventory = Inventory
+        g.Users = Users
     return g.db
 
 
@@ -27,57 +93,18 @@ def close_db(e=None):
 def init_db():
     db = get_db()
 
-    default_inventory = [
-        {
-            "name": "Aged Brie",
-            "sell_in": 2,
-            "quality": 0,
-        },
-        {
-            "name": "+5 Dexterity Vest",
-            "sell_in": 10,
-            "quality": 20,
-        },
-        {
-            "name": "Elixir of the Mongoose",
-            "sell_in": 5,
-            "quality": 7,
-        },
-        {
-            "name": "Sulfuras, Hand of Ragnaros",
-            "sell_in": 0,
-            "quality": 80,
-        },
-        {
-            "name": "Sulfuras, Hand of Ragnaros",
-            "sell_in": -1,
-            "quality": 80,
-        },
-        {
-            "name": "Backstage passes to a TAFKAL80ETC concert",
-            "sell_in": 15,
-            "quality": 20,
-        },
-        {
-            "name": "Backstage passes to a TAFKAL80ETC concert",
-            "sell_in": 10,
-            "quality": 49,
-        },
-        {
-            "name": "Backstage passes to a TAFKAL80ETC concert",
-            "sell_in": 5,
-            "quality": 49,
-        },
-        {
-            "name": "Conjured Mana Cake",
-            "sell_in": 3,
-            "quality": 6,
-        },
-    ]
-
     for product in default_inventory:
         Inventory(
             name=product["name"], sell_in=product["sell_in"], quality=product["quality"]
+        ).save()
+
+    for user in default_users:
+        Users(
+            user_name=user["user_name"],
+            email=user["email"],
+            password=user["password"],
+            credit=user["credit"],
+            inventory=user["inventory"],
         ).save()
 
 

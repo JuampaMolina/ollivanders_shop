@@ -8,20 +8,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles/styles.css">
+    <script src="https://kit.fontawesome.com/a3c4a2aaa6.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<main>
-    <h1 class="inventory_title">Inventory</h1>
-    <section class="parent">
-
+    <header>
+        <button><a href="./registerUser.html">Register</a></button>
+        <h2>Ollivander's Shop</h2>
+        <a class="link" href="./personalInventory.html">Personal Inventory</a>
+    </header>
+    <main>
+        <section class="filter">
+            <form class="filter-item">
+                <select name="property" id="property">
+                    <option value="name">Name</option>
+                    <option value="sell_in">Sell In</option>
+                    <option value="quality">Quality</option>
+                </select>
+                <input type="text" name="itemValue" id="itemValue" placeholder="Value">
+                <input type="submit" name="filter" value="Filter">
+            </form>
+        </section>
+        <section class="inventory">
+            
+        </section>
+        <section class="inventory-buttons">
+            <button onclick="loadItems()">Reload Inventory</button>
+            <button onclick="updateQuality()">Update Quality</button>
+        </section>
+    </main>
+    <section class="form index-form">
+        <form class="add-del-item">
+            <input type="text" name="name" id="name" required placeholder="Name">
+            <input type="number" name="sell_in" id="sell_in" required placeholder="Sell In">
+            <input type="number" name="quality" id="quality" required placeholder="Quality">
+            <section class="form-buttons">
+                <input type="reset" value="Reset">
+                <input class="add" type="submit" name="add" value="Add Item">
+                <input class="delete" type="submit" name="delete" value="Delete Item">
+            </section>
+        </form>
     </section>
-    <div class="buttons_section">
-        <div class="button" onclick="loadItems();">ReloadInventory</div>
-        <div class="button" onclick="updateQuality();">UpdateQuality</div>
-        <div class="button" onclick="removeCards();">remove</div>
-    </div>
-</main>
 <script src="js/main.js"></script>
 </body>
 </html>

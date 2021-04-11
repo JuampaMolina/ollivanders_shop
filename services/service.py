@@ -1,6 +1,6 @@
 from flask import jsonify
 from flask_restful import abort
-
+from mongoengine import errors
 from repository.db import DB
 
 
@@ -74,19 +74,26 @@ class Service:
 
     @staticmethod
     def register_user(args):
-        DB.register_user(args)
-        response = jsonify(
-            {"message": "User {} added successfully".format(args["user_name"])}
-        )
-        response.status_code = 201
-        return response
+        try:
+            DB.register_user(args)
+            response = jsonify(
+                {"message": "User {} added successfully".format(args["user_name"])}
+            )
+            response.status_code = 201
+        except errors.NotUniqueError:
+            response = jsonify(
+                {"message": "The user {} already exists".format(args["user_name"])}
+            )
+            response.status_code = 409
+        finally:
+            return response
 
     @staticmethod
     def buy_item(args):
         DB.buy_item(args)
         response = jsonify(
             {
-                "message": "Congratulations {user} item {item} buyed successfully".format(
+                "message": "Congratulations {user}! {item} buyed successfully".format(
                     user=args["user_name"], item=args["name"]
                 )
             }

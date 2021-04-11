@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="API REST OllivandersShop",
-    version="0.0.1",
+    version="1.0.0",
     author="Charlos16v, JuampaMolina",
     author_email="cdominguez@cifpfbmoll.eu, jruiz@cifpfbmoll.eu",
     description="API REST Flask with MongoDB",

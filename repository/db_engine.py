@@ -32,17 +32,17 @@ default_inventory = [
         "quality": 80,
     },
     {
-        "name": "Backstage passes to a TAFKAL80ETC concert",
+        "name": "Backstage Pass",
         "sell_in": 15,
         "quality": 20,
     },
     {
-        "name": "Backstage passes to a TAFKAL80ETC concert",
+        "name": "Backstage Pass",
         "sell_in": 10,
         "quality": 49,
     },
     {
-        "name": "Backstage passes to a TAFKAL80ETC concert",
+        "name": "Backstage Pass",
         "sell_in": 5,
         "quality": 49,
     },

@@ -31,17 +31,17 @@ expectedInventoryDay1 = [
         "quality": 80,
     },
     {
-        "name": "Backstage passes to a TAFKAL80ETC concert",
+        "name": "Backstage Pass",
         "sell_in": 14,
         "quality": 21,
     },
     {
-        "name": "Backstage passes to a TAFKAL80ETC concert",
+        "name": "Backstage Pass",
         "sell_in": 9,
         "quality": 50,
     },
     {
-        "name": "Backstage passes to a TAFKAL80ETC concert",
+        "name": "Backstage Pass",
         "sell_in": 4,
         "quality": 50,
     },

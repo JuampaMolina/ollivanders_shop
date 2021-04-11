@@ -111,21 +111,29 @@ class DB:
             user_name=args["user_name"],
             email=args["email"],
             password=args["password"],
-            credit=args["credit"],
-            inventory=args["inventory"],
+            credit=50,
+            inventory=[]
         ).save()
 
     @staticmethod
     def buy_item(args):
         db = get_db()
-        item = g.Inventory.objects(Q(name=args["name"])).first()
+        item = g.Inventory.objects(
+            Q(name=args["name"])
+            & Q(sell_in=args["sell_in"])
+            & Q(quality=args["quality"])
+        ).first()
 
         if not item:
             abort(404, message="No item found with that name")
 
         itemDict = {"name": item.name, "sell_in": item.sell_in, "quality": item.quality}
 
-        user = g.Users.objects(Q(user_name=args["user_name"])).first()
+        user = g.Users.objects(Q(user_name=args["user_name"])
+                               & Q(password=args["password"])).first()
+
+        if not user:
+            abort(404, message="There is no user with this name and password")
 
         if user.credit >= item.quality:
             inventory = user.inventory

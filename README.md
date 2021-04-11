@@ -73,7 +73,7 @@ Hay dos formas de hacer la instalación de nuestro proyecto, a continuación ser
 
     ```Python
     connect(
-    		host='URI' )
+    	host='URI' )
     ```
 
 2. Activa el entorno virtual:

@@ -162,9 +162,9 @@ def test_register_user(client):
 @pytest.mark.db_buy_item
 def test_buy_item(client):
     # Case can pay it and item exist
-    rv1 = client.put("/buy?user_name=Juampa&name=Elixir of the Mongoose")
+    rv1 = client.put("/buy?user_name=Juampa&password=test&name=Elixir of the Mongoose&sell_in=5&quality=7")
     assert json.loads(rv1.data) == {
-        "message": "Congratulations Juampa item Elixir of the Mongoose buyed successfully"
+        "message": "Congratulations Juampa! Elixir of the Mongoose buyed successfully"
     }
     rv2 = client.get("/user")
     expectedUsersBuyItem = expectedUsers.copy()
@@ -191,13 +191,13 @@ def test_buy_item(client):
     assert json.loads(rv2.data) == expectedUsersBuyItem
 
     # Case can't pay it
-    rv3 = client.put("/buy?user_name=Juampa&name=Sulfuras, Hand of Ragnaros")
+    rv3 = client.put("/buy?user_name=Juampa&password=test&name=Sulfuras, Hand of Ragnaros&sell_in=0&quality=80")
     assert json.loads(rv3.data) == {"message": "You do not have enough credits"}
     rv4 = client.get("/user")
     assert json.loads(rv4.data) == expectedUsersBuyItem
 
     # Case item doesn't exist
-    rv5 = client.put("/buy?user_name=Juampa&name=I don't exist")
+    rv5 = client.put("/buy?user_name=Juampa&password=test&name=I don't exist&sell_in=0&quality=80")
     assert json.loads(rv5.data) == {"message": "No item found with that name"}
     rv6 = client.get("/user")
     assert json.loads(rv6.data) == expectedUsersBuyItem
@@ -206,8 +206,8 @@ def test_buy_item(client):
 @pytest.mark.db_get_personal_inventory
 def test_get_personal_inventory(client):
     # Juampa buys item
-    rv1 = client.put("/buy?user_name=Juampa&name=Elixir of the Mongoose")
-    assert json.loads(rv1.data) == {"message": "Congratulations Juampa item Elixir of the Mongoose buyed successfully"}
+    rv1 = client.put("/buy?user_name=Juampa&password=test&name=Elixir of the Mongoose&sell_in=5&quality=7")
+    assert json.loads(rv1.data) == {"message": "Congratulations Juampa! Elixir of the Mongoose buyed successfully"}
 
     # User have items
     rv2 = client.put("/user/inventory?user_name=Juampa&password=test")

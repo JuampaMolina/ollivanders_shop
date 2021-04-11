@@ -30,20 +30,36 @@ header {
   padding: 20px;
 }
 
+header button {
+  padding: 10px;
+  background: none;
+  border: 2px solid #ffffeb;
+  border-radius: 4px;
+  color: #ffffeb;
+  transition: 0.2s;
+  position: absolute;
+  left: 30px;
+}
+
+header button:hover {
+  background: #25040c;
+}
+
 header h2 {
   font-size: 32px;
   font-weight: bold;
 }
 
-header a {
+header a.link {
   position: absolute;
+  display: inline;
   right: 30px;
   border-bottom: 2px solid transparent;
   margin-bottom: 6px;
   transition: 0.3s;
 }
 
-header a:hover {
+header a.link:hover {
   border-bottom: 2px solid #ffffeb;
 }
 
@@ -74,7 +90,7 @@ select {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 .inventory .item-card {
@@ -100,15 +116,32 @@ select {
   font-size: 6em;
 }
 
-main .inventory .item-card .properties h4 {
+.inventory .item-card .properties h4 {
   margin: 10px;
   text-align: center;
+}
+
+.inventory .item-card button {
+  padding: 10px;
+  background: none;
+  color: #ffffeb;
+  font-size: 14px;
+  border: 2px solid #ffffeb;
+  border-radius: 4px;
+  width: 100px;
+  text-align: center;
+  transition: 0.2s;
+}
+
+.inventory .item-card button:hover {
+  background: #ffffeb;
+  color: #6e0d25;
 }
 
 main .inventory-buttons {
   display: flex;
   justify-content: space-evenly;
-  width: 70%;
+  width: 50%;
   margin: 40px auto;
 }
 
@@ -143,7 +176,7 @@ main .inventory-buttons button:hover {
   content: "";
   display: block;
   position: relative;
-  height: calc(100vh - 284.5px - 334px - 20px);
+  height: calc(100vh - 234.5px - 334px - 20px);
   background: #25040c;
 }
 
@@ -166,7 +199,7 @@ main .inventory-buttons button:hover {
   width: 48%;
 }
 
-.form form input[name="name"] {
+.form form.add-del-item input[name="name"] {
   width: 100%;
 }
 
@@ -201,6 +234,10 @@ main .inventory-buttons button:hover {
 }
 
 .form form.personal-inventory input {
+  width: 100%;
+}
+
+.form form.register-user input {
   width: 100%;
 }
 

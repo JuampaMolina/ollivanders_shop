@@ -14,23 +14,20 @@
 </head>
 <body>
     <header>
-        <button><a href="./registerUser.html">Register</a></button>
-        <h2>Personal Inventory</h2>
+        <h2>Register</h2>
         <a class="link" href="./index.html">Go back</a>
     </header>
     <section class="form">
-        <form class="personal-inventory">
+        <form class="register-user">
+            <input type="email" name="email" id="email" required placeholder="Email">
             <input type="text" name="name" id="name" required placeholder="Name">
             <input type="password" name="password" id="password" required placeholder="Password">
             <section class="form-buttons">
                 <input type="reset" value="Reset">
-                <input class="search" type="submit" name="search" value="Search">
+                <input class="register" type="submit" name="register" value="Register">
             </section>
         </form>
     </section>
-    <section class="inventory personal-inventory">
-
-    </section>
-<script type="module" src="js/personalInventory.js"></script>
+<script type="module" src="js/registerUser.js"></script>
 </body>
 </html>

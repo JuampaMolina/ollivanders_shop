@@ -1,3 +1,5 @@
+var ip = 'http://127.0.0.1:5000'
+
 let formRegisterUser = document.querySelector('.register-user');
 formRegisterUser.register.addEventListener('click', registerUser);
 
@@ -10,14 +12,14 @@ function registerUser(e) {
         password: formRegisterUser.elements.password.value
     };
 
-    fetch('http://0.0.0.0:4000/user', {
+    fetch(`${ip}/user`, {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
             'Content-Type': 'application/json'
         }
     })
-        .then(response => response.json()) 
+        .then(response => response.json())
         .then(data => {
                 alert(data.message)
             }

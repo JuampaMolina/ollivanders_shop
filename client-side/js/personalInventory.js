@@ -1,3 +1,5 @@
+var ip = 'http://127.0.0.1:5000'
+
 const section = document.querySelector('.inventory');
 
 function makeCards(doc){
@@ -31,18 +33,18 @@ function getPersonalInventory(e) {
         password: formPersonalInventory.elements.password.value
     };
 
-    fetch('http://0.0.0.0:4000/user/inventory', {
+    fetch(`${ip}/user/inventory`, {
         method: 'PUT',
         body: JSON.stringify(data),
         headers: {
             'Content-Type': 'application/json'
         }
     })
-        .then(response => response.json()) 
+        .then(response => response.json())
         .then(data => {
             if (Array.isArray(data)) {
                 data.forEach(doc => {
-                    makeCards(doc); 
+                    makeCards(doc);
                 });
             } else {
                 alert(data.message)

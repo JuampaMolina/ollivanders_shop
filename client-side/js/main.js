@@ -1,4 +1,4 @@
-var ip = 'http://sandbox-ed.northeurope.cloudapp.azure.com'
+var ip = 'http://127.0.0.1:5000'
 
 var section = document.querySelector('.inventory');
 
@@ -12,7 +12,7 @@ function makeCards(doc){
                         <h4>Sell In: ${doc.sell_in}</h4>
                         <h4>Quality: ${doc.quality}</h4>
                     </div>
-                    <button onclick="buyItem(this)">Buy</button`; 
+                    <button onclick="buyItem(this)">Buy</button`;
                 card.setAttribute("name", doc.name)
                 card.setAttribute("sell_in", doc.sell_in)
                 card.setAttribute("quality", doc.quality)
@@ -39,7 +39,7 @@ function loadItems() {
         .then(data => {
             if (Array.isArray(data)) {
                 data.forEach(doc => {
-                    makeCards(doc); 
+                    makeCards(doc);
                 });
             } else {
                 alert(data.message)
@@ -71,7 +71,7 @@ function addItem(e) {
                 'Content-Type': 'application/json'
             }
         })
-            .then(response => response.json()) 
+            .then(response => response.json())
             .then(data => {
                     alert(data.message)
                 }
@@ -88,11 +88,11 @@ form.delete.addEventListener('click', deleteItem);
 
 function deleteItem(e) {
     e.preventDefault();
-    
-    let data = { 
-        name: form.elements.name.value,            
+
+    let data = {
+        name: form.elements.name.value,
         sell_in: form.elements.sell_in.value,
-        quality: form.elements.quality.value 
+        quality: form.elements.quality.value
 
     };
     if (data.name === ""|| data.sell_in === ""|| data.quality === "") {
@@ -105,7 +105,7 @@ function deleteItem(e) {
                 'Content-Type': 'application/json'
             }
         })
-            .then(response => response.json()) 
+            .then(response => response.json())
             .then(data => {
                     alert(data.message)
                 }
@@ -123,17 +123,17 @@ filterForm.filter.addEventListener('click', filterItem);
 
 function filterItem(e) {
     e.preventDefault();
-    
+
     let property = document.getElementById("property").value;
     let value = document.getElementById("itemValue").value;
-    
+
     removeCards();
     fetch(`${ip}/item/${property}/${value}`)
-        .then(response => response.json()) 
+        .then(response => response.json())
         .then(data => {
             if (Array.isArray(data)) {
                 data.forEach(doc => {
-                    makeCards(doc); 
+                    makeCards(doc);
                 });
             } else {
                 alert(data.message)
@@ -149,7 +149,7 @@ function updateQuality() {
         .then(data => {
             if (Array.isArray(data)) {
                 data.forEach(doc => {
-                    makeCards(doc); 
+                    makeCards(doc);
                 });
             } else {
                 alert(data.message)
@@ -174,11 +174,11 @@ function getPersonalInventory(e) {
             'Content-Type': 'application/json'
         }
     })
-        .then(response => response.json()) 
+        .then(response => response.json())
         .then(data => {
             if (Array.isArray(data)) {
                 data.forEach(doc => {
-                    makeCards(doc); 
+                    makeCards(doc);
                 });
             } else {
                 alert(data.message)
@@ -214,7 +214,7 @@ function buyItem(button){
             'Content-Type': 'application/json'
         }
     })
-        .then(response => response.json()) 
+        .then(response => response.json())
         .then(data => {
                 alert(data.message)
             }

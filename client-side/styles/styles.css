@@ -12,7 +12,9 @@
 }
 
 body {
-  background: #151415;
+  /*background: #151415;*/
+  background: rgb(20,4,13);
+  background: linear-gradient(0deg, rgba(20,4,13,1) 25%, rgba(50,4,13,1) 100%);
   color: #ffffeb;
 }
 
@@ -25,7 +27,10 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #6e0d25;
+  /*background: #6e0d25;*/
+
+  background: rgb(85,10,29);
+  background: linear-gradient(0deg, rgba(85,10,29,1) 59%, rgba(40,9,24,1) 100%);
   border-bottom: 8px solid #25040c;
   padding: 20px;
 }
@@ -96,7 +101,9 @@ select {
 .inventory .item-card {
   width: 250px;
   height: 400px;
-  background: #6e0d25;
+  /*background: #6e0d25;*/
+  background: rgb(111,14,36);
+  background: linear-gradient(180deg, rgba(111,14,36,1) 60%, rgba(80,9,24,1) 100%);
   border: 6px solid #25040c;
   border-radius: 15px;
   display: flex;

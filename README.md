@@ -107,6 +107,9 @@ Almacena un único archivo que contiene toda la lógica del dominio, en este cas
 #### Controller
 Es el módulo encargado de gestionar las peticiones a los endpoints dependiendo del método HTTP Rest utilizado. En las clases necesarias también definimos un parseRequest para tener control sobre los argumentos que nos llegan y trabajar con ellos.
 
+#### Services
+Este módulo es una capa intermedia entre controller y repository. Contiene un solo archivo con los métodos  que llaman a los de repository y nos encargamos de devolver una response adecuada dependiendo de lo que nos devuelvan.
+
 #### Repository
 En este módulo encontramos todo lo relacionado con la base de datos, se compone de los siguientes archivos:
 
@@ -121,9 +124,6 @@ Definimos la estructura de los documentos, tanto de los usuarios como de los ite
 
 - factory.py:
 Contiene un método que procesa los items para convertirlos en objetos y así poder hacer el updateQuality.
-
-#### Services
-Este módulo es una capa intermedia entre controller y repository. Contiene un solo archivo con los métodos  que llaman a los de repository y nos encargamos de devolver una response adecuada dependiendo de lo que nos devuelvan.
 
 ## Endpoints and methods
 #### /inventory

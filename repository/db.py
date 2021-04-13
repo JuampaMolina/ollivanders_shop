@@ -112,7 +112,7 @@ class DB:
             email=args["email"],
             password=args["password"],
             credit=50,
-            inventory=[]
+            inventory=[],
         ).save()
 
     @staticmethod
@@ -129,8 +129,9 @@ class DB:
 
         itemDict = {"name": item.name, "sell_in": item.sell_in, "quality": item.quality}
 
-        user = g.Users.objects(Q(user_name=args["user_name"])
-                               & Q(password=args["password"])).first()
+        user = g.Users.objects(
+            Q(user_name=args["user_name"]) & Q(password=args["password"])
+        ).first()
 
         if not user:
             abort(404, message="There is no user with this name and password")
@@ -151,8 +152,9 @@ class DB:
     @staticmethod
     def get_personal_inventory(args):
         db = get_db()
-        user = g.Users.objects(Q(user_name=args["user_name"])
-                               & Q(password=args["password"])).first()
+        user = g.Users.objects(
+            Q(user_name=args["user_name"]) & Q(password=args["password"])
+        ).first()
 
         personal_inventory = []
 

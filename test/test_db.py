@@ -161,7 +161,9 @@ def test_register_user(client):
 @pytest.mark.db_buy_item
 def test_buy_item(client):
     # Case can pay it and item exist
-    rv1 = client.put("/buy?user_name=Juampa&password=test&name=Elixir of the Mongoose&sell_in=5&quality=7")
+    rv1 = client.put(
+        "/buy?user_name=Juampa&password=test&name=Elixir of the Mongoose&sell_in=5&quality=7"
+    )
     assert json.loads(rv1.data) == {
         "message": "Congratulations Juampa! Elixir of the Mongoose buyed successfully"
     }
@@ -190,13 +192,17 @@ def test_buy_item(client):
     assert json.loads(rv2.data) == expectedUsersBuyItem
 
     # Case can't pay it
-    rv3 = client.put("/buy?user_name=Juampa&password=test&name=Sulfuras, Hand of Ragnaros&sell_in=0&quality=80")
+    rv3 = client.put(
+        "/buy?user_name=Juampa&password=test&name=Sulfuras, Hand of Ragnaros&sell_in=0&quality=80"
+    )
     assert json.loads(rv3.data) == {"message": "You do not have enough credits"}
     rv4 = client.get("/user")
     assert json.loads(rv4.data) == expectedUsersBuyItem
 
     # Case item doesn't exist
-    rv5 = client.put("/buy?user_name=Juampa&password=test&name=I don't exist&sell_in=0&quality=80")
+    rv5 = client.put(
+        "/buy?user_name=Juampa&password=test&name=I don't exist&sell_in=0&quality=80"
+    )
     assert json.loads(rv5.data) == {"message": "No item found with that name"}
     rv6 = client.get("/user")
     assert json.loads(rv6.data) == expectedUsersBuyItem
@@ -205,23 +211,27 @@ def test_buy_item(client):
 @pytest.mark.db_get_personal_inventory
 def test_get_personal_inventory(client):
     # Juampa buys item
-    rv1 = client.put("/buy?user_name=Juampa&password=test&name=Elixir of the Mongoose&sell_in=5&quality=7")
-    assert json.loads(rv1.data) == {"message": "Congratulations Juampa! Elixir of the Mongoose buyed successfully"}
+    rv1 = client.put(
+        "/buy?user_name=Juampa&password=test&name=Elixir of the Mongoose&sell_in=5&quality=7"
+    )
+    assert json.loads(rv1.data) == {
+        "message": "Congratulations Juampa! Elixir of the Mongoose buyed successfully"
+    }
 
     # User have items
     rv2 = client.put("/user/inventory?user_name=Juampa&password=test")
     assert json.loads(rv2.data) == [
-        {
-            "name": "Elixir of the Mongoose",
-            "sell_in": 5,
-            "quality": 7
-        }
+        {"name": "Elixir of the Mongoose", "sell_in": 5, "quality": 7}
     ]
 
     # User doesn't have items
     rv3 = client.put("/user/inventory?user_name=Charlos&password=test")
-    assert json.loads(rv3.data) == {"message": "The user Charlos doesn't have any items"}
+    assert json.loads(rv3.data) == {
+        "message": "The user Charlos doesn't have any items"
+    }
 
     # Incorrect password
     rv4 = client.put("/user/inventory?user_name=Charlos&password=incorrect")
-    assert json.loads(rv4.data) == {"message": "There is no user with this name and password"}
+    assert json.loads(rv4.data) == {
+        "message": "There is no user with this name and password"
+    }

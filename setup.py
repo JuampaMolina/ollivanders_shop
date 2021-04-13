@@ -33,6 +33,6 @@ setuptools.setup(
         "mongomock==3.22.1",
         "pymongo==3.11.3",
         "pytest==6.2.2",
-        "Werkzeug==1.0.1"
+        "Werkzeug==1.0.1",
     ],
 )

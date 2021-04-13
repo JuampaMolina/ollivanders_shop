@@ -14,7 +14,11 @@ class Users(Resource):
     @staticmethod
     def parseRequest():
         parser = reqparse.RequestParser(bundle_errors=True)
-        parser.add_argument("user_name", type=str, required=True, help="user_name required")
+        parser.add_argument(
+            "user_name", type=str, required=True, help="user_name required"
+        )
         parser.add_argument("email", type=str, required=True, help="email required")
-        parser.add_argument("password", type=str, required=True, help="password required")
+        parser.add_argument(
+            "password", type=str, required=True, help="password required"
+        )
         return parser.parse_args()
